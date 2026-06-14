@@ -1,0 +1,341 @@
+<view class="health-record-page">
+
+  <!-- 概览卡片 -->
+  <view class="overview-card">
+    <view class="overview-header">
+      <view class="overview-title">本周健康速览</view>
+      <view class="overview-sub">近7天记录概览</view>
+    </view>
+    <view class="overview-stats">
+      <view class="stat-item">
+        <view class="stat-value">{{weeklyOverview.recordCount}}</view>
+        <view class="stat-label">天记录</view>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <view class="stat-value stat-icon">{{weeklyOverview.dominantMoodIcon || '—'}}</view>
+        <view class="stat-label">主导心情</view>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <view class="stat-value">{{weeklyOverview.avgTemperature || '—'}}</view>
+        <view class="stat-label">平均体温</view>
+      </view>
+    </view>
+    <view class="overview-symptoms" wx:if="{{weeklyOverview.topSymptoms.length}}">
+      <view class="symptom-chip" wx:for="{{weeklyOverview.topSymptoms}}" wx:key="key">
+        <text class="chip-icon">{{item.icon}}</text>
+        <text class="chip-label">{{item.label}}</text>
+        <text class="chip-count">{{item.count}}次</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Tab 栏 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'symptom' ? 'active' : ''}}" data-tab="symptom" bindtap="onTabChange">
+      <text>症状趋势</text>
+    </view>
+    <view class="tab-item {{activeTab === 'phase' ? 'active' : ''}}" data-tab="phase" bindtap="onTabChange">
+      <text>阶段分布</text>
+    </view>
+    <view class="tab-item {{activeTab === 'temperature' ? 'active' : ''}}" data-tab="temperature" bindtap="onTabChange">
+      <text>体温曲线</text>
+    </view>
+    <view class="tab-item {{activeTab === 'mood' ? 'active' : ''}}" data-tab="mood" bindtap="onTabChange">
+      <text>情绪分析</text>
+    </view>
+    <view class="tab-item {{activeTab === 'monthly' ? 'active' : ''}}" data-tab="monthly" bindtap="onTabChange">
+      <text>月度小结</text>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="content-area">
+
+    <!-- 症状趋势 Tab -->
+    <view class="tab-content" wx:if="{{activeTab === 'symptom'}}">
+      <view class="section-card">
+        <view class="card-title">近28天症状数量趋势</view>
+        <view class="card-sub">每天出现的症状种类数</view>
+        <view class="trend-chart">
+          <view class="chart-bars">
+            <view
+              class="chart-bar-wrap"
+              wx:for="{{trendData}}"
+              wx:key="dateStr"
+            >
+              <view
+                class="chart-bar chart-bar--{{item.phase}}"
+                style="height: {{trendMaxSymptom > 0 ? (item.symptomCount / trendMaxSymptom * 100) : 0}}%"
+              ></view>
+            </view>
+          </view>
+          <view class="chart-xaxis">
+            <text class="xlabel" wx:for="{{trendData}}" wx:for-index="idx" wx:for-item="item" wx:key="dateStr" wx:if="{{idx % 7 === 0}}">{{item.date}}</text>
+          </view>
+        </view>
+        <view class="legend">
+          <view class="legend-item"><view class="legend-dot legend-dot--menstrual"></view><text>经期</text></view>
+          <view class="legend-item"><view class="legend-dot legend-dot--follicular"></view><text>卵泡期</text></view>
+          <view class="legend-item"><view class="legend-dot legend-dot--ovulation"></view><text>排卵期</text></view>
+          <view class="legend-item"><view class="legend-dot legend-dot--luteal"></view><text>黄体期</text></view>
+        </view>
+      </view>
+
+      <view class="section-card">
+        <view class="card-title">症状详解</view>
+        <view class="card-sub">点击查看详细建议</view>
+        <view class="symptom-detail-list">
+          <view
+            class="symptom-detail-item"
+            wx:for="{{weeklyOverview.topSymptoms}}"
+            wx:key="key"
+            bindtap="onSymptomTap"
+            data-key="{{item.key}}"
+          >
+            <view class="sd-icon">{{item.icon}}</view>
+            <view class="sd-info">
+              <view class="sd-name">{{item.label}}</view>
+              <view class="sd-count">本周出现 {{item.count}} 次</view>
+            </view>
+            <view class="sd-arrow">›</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 阶段分布 Tab -->
+    <view class="tab-content" wx:if="{{activeTab === 'phase'}}">
+      <view class="section-card" wx:if="{{phaseList.length}}">
+        <view class="card-title">各阶段高发症状</view>
+        <view class="card-sub">基于你的历史记录分析</view>
+
+        <view
+          class="phase-symptom-block"
+          wx:for="{{phaseList}}"
+          wx:key="label"
+        >
+          <view class="phase-header">
+            <text class="phase-name">{{item.label}}</text>
+            <text class="phase-count">{{item.recordCount}}天记录</text>
+          </view>
+          <view class="phase-symptom-list">
+            <view
+              class="phase-symptom-item"
+              wx:for="{{item.symptoms}}"
+              wx:for-item="sym"
+              wx:key="key"
+            >
+              <view class="psi-row">
+                <text class="psi-icon">{{sym.icon}}</text>
+                <text class="psi-label">{{sym.label}}</text>
+                <text class="psi-count">{{sym.count}}次</text>
+              </view>
+              <view class="psi-bar">
+                <view class="psi-bar-fill" style="width: {{sym.rate}}%"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="empty-state" wx:else>
+        <text class="empty-icon">📊</text>
+        <text class="empty-text">还没有足够的记录\n坚持记录可以看到各阶段症状分布</text>
+      </view>
+    </view>
+
+    <!-- 体温曲线 Tab -->
+    <view class="tab-content" wx:if="{{activeTab === 'temperature'}}">
+      <view class="section-card" wx:if="{{tempAnalysis.hasData}}">
+        <view class="card-title">体温曲线与经期关联</view>
+        <view class="card-sub">最近30天基础体温变化</view>
+
+        <view class="temp-stats">
+          <view class="temp-stat-item">
+            <view class="ts-value">{{tempAnalysis.avgTemperature}}°C</view>
+            <view class="ts-label">平均体温</view>
+          </view>
+          <view class="temp-stat-item">
+            <view class="ts-value">{{tempAnalysis.minTemperature}}°C</view>
+            <view class="ts-label">最低</view>
+          </view>
+          <view class="temp-stat-item">
+            <view class="ts-value">{{tempAnalysis.maxTemperature}}°C</view>
+            <view class="ts-label">最高</view>
+          </view>
+        </view>
+
+        <view class="temp-chart">
+          <view class="temp-line-chart">
+            <view
+              class="temp-point temp-point--{{item.phase}}"
+              wx:for="{{tempAnalysis.dataPoints}}"
+              wx:key="dateStr"
+              style="left: {{index / (tempAnalysis.dataPoints.length - 1) * 100}}%; bottom: {{tempMax > tempMin ? ((item.temperature - tempMin) / (tempMax - tempMin) * 100) : 50}}%"
+            >
+              <view class="temp-point-dot"></view>
+            </view>
+          </view>
+          <view class="temp-chart-y">
+            <text class="temp-y-label">{{tempMax}}°</text>
+            <text class="temp-y-label">{{(tempMin + (tempMax-tempMin)/2).toFixed(1)}}°</text>
+            <text class="temp-y-label">{{tempMin}}°</text>
+          </view>
+        </view>
+
+        <view class="temp-insights">
+          <view class="insight-title">📈 体温洞察</view>
+          <view class="insight-text" wx:for="{{tempAnalysis.insights}}" wx:key="*this">
+            • {{item}}
+          </view>
+        </view>
+      </view>
+
+      <view class="empty-state" wx:else>
+        <text class="empty-icon">🌡️</text>
+        <text class="empty-text">暂无体温记录\n每天早晨测量并记录基础体温\n可以更准确地追踪排卵情况</text>
+      </view>
+    </view>
+
+    <!-- 情绪分析 Tab -->
+    <view class="tab-content" wx:if="{{activeTab === 'mood'}}">
+      <view class="section-card" wx:if="{{moodAnalysis.totalRecords > 0}}">
+        <view class="card-title">心情分布</view>
+        <view class="card-sub">近30天心情记录统计</view>
+
+        <view class="mood-score">
+          <view class="mood-score-value">{{moodAnalysis.avgMoodScore}}</view>
+          <view class="mood-score-label">平均心情指数</view>
+        </view>
+
+        <view class="mood-bars">
+          <view
+            class="mood-bar-item"
+            wx:for="{{moodAnalysis.distribution}}"
+            wx:key="key"
+          >
+            <view class="mood-bar-icon">{{item.icon}}</view>
+            <view class="mood-bar-track">
+              <view class="mood-bar-fill" style="width: {{item.rate}}%"></view>
+            </view>
+            <view class="mood-bar-count">{{item.count}}次</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="section-card" wx:if="{{moodAnalysis.insights.length}}">
+        <view class="card-title">情绪洞察</view>
+        <view class="insight-list">
+          <view class="insight-item" wx:for="{{moodAnalysis.insights}}" wx:key="*this">
+            <text class="insight-dot">💡</text>
+            <text class="insight-text">{{item}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="empty-state" wx:if="{{moodAnalysis.totalRecords === 0}}">
+        <text class="empty-icon">😊</text>
+        <text class="empty-text">还没有心情记录\n记录心情可以发现情绪与周期的关系</text>
+      </view>
+    </view>
+
+    <!-- 月度小结 Tab -->
+    <view class="tab-content" wx:if="{{activeTab === 'monthly'}}">
+      <view class="section-card">
+        <view class="card-title">{{currentMonthLabel}}健康小结</view>
+        <view class="monthly-summary-text">{{monthlySummary.summaryText}}</view>
+
+        <view class="monthly-stats">
+          <view class="ms-item">
+            <view class="ms-value">{{monthlySummary.recordCount}}</view>
+            <view class="ms-label">天记录</view>
+          </view>
+          <view class="ms-item">
+            <view class="ms-value">{{monthlySummary.periodCount}}</view>
+            <view class="ms-label">次经期</view>
+          </view>
+          <view class="ms-item">
+            <view class="ms-value ms-icon">{{monthlySummary.mostCommonMoodIcon || '—'}}</view>
+            <view class="ms-label">主导心情</view>
+          </view>
+          <view class="ms-item">
+            <view class="ms-value">{{monthlySummary.avgTemperature || '—'}}</view>
+            <view class="ms-label">平均体温</view>
+          </view>
+        </view>
+
+        <view class="monthly-symptoms" wx:if="{{monthlySummary.topSymptoms.length}}">
+          <view class="ms-title">本月常见症状</view>
+          <view class="ms-symptom-list">
+            <view
+              class="ms-symptom-item"
+              wx:for="{{monthlySummary.topSymptoms}}"
+              wx:key="key"
+              bindtap="onSymptomTap"
+              data-key="{{item.key}}"
+            >
+              <text class="ms-sym-icon">{{item.icon}}</text>
+              <text class="ms-sym-label">{{item.label}}</text>
+              <text class="ms-sym-count">{{item.count}}次</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="section-card">
+        <view class="card-title">💡 健康小贴士</view>
+        <view class="health-tips-list">
+          <view class="ht-item">
+            <text class="ht-icon">🥗</text>
+            <text class="ht-text">保持均衡饮食，多吃新鲜蔬果和优质蛋白</text>
+          </view>
+          <view class="ht-item">
+            <text class="ht-icon">🏃</text>
+            <text class="ht-text">每周保持3-5次适度运动，促进血液循环</text>
+          </view>
+          <view class="ht-item">
+            <text class="ht-icon">😴</text>
+            <text class="ht-text">保证7-8小时睡眠，规律作息很重要</text>
+          </view>
+          <view class="ht-item">
+            <text class="ht-icon">💆</text>
+            <text class="ht-text">学会放松和减压，保持良好心态</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+  <view class="bottom-spacer"></view>
+
+  <!-- 症状详情弹窗 -->
+  <view class="insight-modal" wx:if="{{showInsight}}" bindtap="onCloseInsight">
+    <view class="insight-modal-content" catchtap="noop">
+      <view class="insight-modal-header">
+        <text class="insight-modal-icon">{{currentInsight.icon}}</text>
+        <text class="insight-modal-title">{{currentInsight.label}}</text>
+        <view class="insight-modal-close" bindtap="onCloseInsight">✕</view>
+      </view>
+      <view class="insight-modal-body">
+        <view class="im-section">
+          <view class="im-section-title">🔬 为什么会这样</view>
+          <view class="im-text">{{currentInsight.insight}}</view>
+        </view>
+        <view class="im-section">
+          <view class="im-section-title">💡 改善建议</view>
+          <view class="im-tip" wx:for="{{currentInsight.tips}}" wx:key="*this">
+            <text class="im-tip-num">{{index + 1}}.</text>
+            <text class="im-tip-text">{{item}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="im-action" bindtap="onGoHealth">
+        <text>查看更多健康知识 ›</text>
+      </view>
+    </view>
+  </view>
+
+</view>

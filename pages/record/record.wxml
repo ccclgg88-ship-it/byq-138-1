@@ -159,4 +159,54 @@
     <button class="btn-primary save-btn" bindtap="onSave">保存记录</button>
   </view>
 
+  <!-- 保存成功后的健康洞察弹窗 -->
+  <view class="insight-modal" wx:if="{{showInsight && recordInsight}}" catchtap="noop">
+    <view class="insight-modal-wrap">
+      <view class="imw-header">
+        <text class="imw-icon">✨</text>
+        <text class="imw-title">健康洞察</text>
+        <view class="imw-close" bindtap="onCloseInsight">✕</view>
+      </view>
+
+      <view class="imw-body">
+        <view class="imw-phase-tag">
+          <text>{{recordInsight.phaseLabel || '今日'}}记录分析</text>
+        </view>
+
+        <!-- 洞察 -->
+        <view class="imw-section" wx:if="{{recordInsight.insights.length}}">
+          <view class="imw-section-title">💡 你知道吗</view>
+          <view class="imw-insight-item" wx:for="{{recordInsight.insights}}" wx:key="*this">
+            <view class="insight-dot-purple"></view>
+            <text class="imw-insight-text">{{item}}</text>
+          </view>
+        </view>
+
+        <!-- 改善建议 -->
+        <view class="imw-section" wx:if="{{recordInsight.tips.length}}">
+          <view class="imw-section-title">🌿 改善建议</view>
+          <view class="imw-tip-item" wx:for="{{recordInsight.tips}}" wx:key="*this">
+            <text class="imw-tip-num">{{index + 1}}</text>
+            <text class="imw-tip-text">{{item}}</text>
+          </view>
+        </view>
+
+        <!-- 空状态提示 -->
+        <view class="imw-empty" wx:if="{{!recordInsight.insights.length && !recordInsight.tips.length}}">
+          <text class="imw-empty-icon">📝</text>
+          <text class="imw-empty-text">记录越完整，健康洞察越丰富\n下次试着记录更多身体感受吧</text>
+        </view>
+      </view>
+
+      <view class="imw-actions">
+        <button class="imw-btn imw-btn--secondary" bindtap="onInsightGoRecord">
+          查看健康档案
+        </button>
+        <button class="imw-btn imw-btn--primary" bindtap="onCloseInsight">
+          完成
+        </button>
+      </view>
+    </view>
+  </view>
+
 </view>

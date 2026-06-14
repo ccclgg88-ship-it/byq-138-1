@@ -68,6 +68,19 @@
 
       <view class="cell__divider"></view>
 
+      <view class="cell" bindtap="onGoHealthRecord">
+        <view class="cell__label-wrap">
+          <text class="cell__icon">📊</text>
+          <text class="cell__label">症状健康档案</text>
+        </view>
+        <view class="cell__value">
+          <text class="cell__tag-purple">查看分析</text>
+          <text class="cell__arrow">›</text>
+        </view>
+      </view>
+
+      <view class="cell__divider"></view>
+
       <view class="cell" bindtap="onAbout">
         <text class="cell__label">关于花期记录</text>
         <view class="cell__value">

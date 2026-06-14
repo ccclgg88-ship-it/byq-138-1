@@ -2,6 +2,7 @@ var store = require('../../utils/store.js')
 var analysis = require('../../utils/analysis.js')
 var period = require('../../utils/period.js')
 var articlesData = require('../../data/articles.js')
+var symptomsUtil = require('../../utils/symptoms.js')
 
 var PHASE_ARTICLE_KEYWORDS = {
   menstrual: ['经期', '痛经', '月经量', '经期不规律'],
@@ -22,7 +23,13 @@ Page({
     trendMaxHeight: 200,
     avgLineBottom: 0,
     phaseArticles: [],
-    phaseRecommendTitle: ''
+    phaseRecommendTitle: '',
+    weeklyOverview: {
+      recordCount: 0,
+      topSymptoms: [],
+      dominantMood: '',
+      dominantMoodIcon: ''
+    }
   },
 
   _unsubPeriods: null,
@@ -69,6 +76,10 @@ Page({
     var currentPhase = currentStatus.currentPhase || 'follicular'
     var phaseInfo = this._getPhaseRecommendations(currentPhase)
 
+    // 本周症状速览
+    var dailyRecords = store.get('dailyRecords') || {}
+    var weeklyOverview = symptomsUtil.getWeeklyOverview(dailyRecords, periods, settings)
+
     this.setData({
       hasData: true,
       cycleAnalysis: report.cycleAnalysis,
@@ -80,7 +91,8 @@ Page({
       trendMaxHeight: maxHeight,
       avgLineBottom: avgLineBottom,
       phaseArticles: phaseInfo.articles,
-      phaseRecommendTitle: phaseInfo.title
+      phaseRecommendTitle: phaseInfo.title,
+      weeklyOverview: weeklyOverview
     })
   },
 
@@ -185,6 +197,13 @@ Page({
   onGoHealth: function () {
     wx.navigateTo({
       url: '/pages/health/health'
+    })
+  },
+
+  /** 跳转到健康档案 */
+  onGoHealthRecord: function () {
+    wx.navigateTo({
+      url: '/pages/health-record/health-record'
     })
   }
 })

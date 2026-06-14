@@ -2,6 +2,7 @@ var store = require('../../utils/store.js')
 var period = require('../../utils/period.js')
 var util = require('../../utils/util.js')
 var articlesData = require('../../data/articles.js')
+var symptomsUtil = require('../../utils/symptoms.js')
 
 var WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
 
@@ -78,7 +79,10 @@ Page({
     phaseArticles: [],
     recommendTitle: '健康知识推荐',
     // 当前阶段（用于推荐文章）
-    currentPhase: 'unknown'
+    currentPhase: 'unknown',
+    // 保存后洞察
+    showInsight: false,
+    recordInsight: null
   },
 
   onLoad: function (options) {
@@ -267,9 +271,14 @@ Page({
     store.saveDailyRecord(this.data.dateStr, record)
     util.showToast('保存成功', 'success')
 
-    setTimeout(function () {
-      wx.navigateBack()
-    }, 1200)
+    // 生成健康洞察
+    var currentPhase = this.data.currentPhase || 'follicular'
+    var recordInsight = symptomsUtil.getRecordInsights(record, currentPhase, this.data.dateStr)
+
+    this.setData({
+      showInsight: true,
+      recordInsight: recordInsight
+    })
   },
 
   /** 刷新推荐文章 */
@@ -352,6 +361,28 @@ Page({
   /** 跳转到健康知识中心 */
   onGoHealth: function () {
     wx.navigateTo({
+      url: '/pages/health/health'
+    })
+  },
+
+  /** 关闭健康洞察弹窗 */
+  onCloseInsight: function () {
+    this.setData({ showInsight: false })
+    wx.navigateBack()
+  },
+
+  /** 从洞察弹窗跳转到健康档案 */
+  onInsightGoRecord: function () {
+    this.setData({ showInsight: false })
+    wx.redirectTo({
+      url: '/pages/health-record/health-record'
+    })
+  },
+
+  /** 从洞察弹窗跳转到健康知识 */
+  onInsightGoHealth: function () {
+    this.setData({ showInsight: false })
+    wx.redirectTo({
       url: '/pages/health/health'
     })
   }

@@ -1,6 +1,7 @@
 var store = require('../../utils/store.js')
 var period = require('../../utils/period.js')
 var tips = require('../../data/tips.js')
+var symptoms = require('../../utils/symptoms.js')
 
 Page({
   data: {
@@ -11,11 +12,19 @@ Page({
     currentTip: { id: 0, text: '', icon: '💡' },
     isInPeriod: false,
     currentPeriodId: null,
-    phaseText: '今日推荐'
+    phaseText: '今日推荐',
+    weeklyOverview: {
+      recordCount: 0,
+      topSymptoms: [],
+      dominantMood: '',
+      dominantMoodIcon: '',
+      avgTemperature: null
+    }
   },
 
   _unsubPeriods: null,
   _unsubSettings: null,
+  _unsubRecords: null,
 
   onLoad: function () {
     this._refreshData()
@@ -51,6 +60,10 @@ Page({
     }
     var phaseText = phaseTextMap[currentStatus.currentPhase] || '今日推荐'
 
+    // 本周症状速览
+    var dailyRecords = store.get('dailyRecords') || {}
+    var weeklyOverview = symptoms.getWeeklyOverview(dailyRecords, periods, settings)
+
     this.setData({
       periods: periods,
       settings: settings,
@@ -59,7 +72,8 @@ Page({
       isInPeriod: !!currentPeriodId,
       selectedDate: period.today(),
       currentTip: currentTip,
-      phaseText: phaseText
+      phaseText: phaseText,
+      weeklyOverview: weeklyOverview
     })
   },
 
@@ -73,6 +87,9 @@ Page({
     this._unsubSettings = store.subscribe('settings', function () {
       self._refreshData()
     })
+    this._unsubRecords = store.subscribe('dailyRecords', function () {
+      self._refreshData()
+    })
   },
 
   /** 取消订阅 */
@@ -84,6 +101,10 @@ Page({
     if (this._unsubSettings) {
       this._unsubSettings()
       this._unsubSettings = null
+    }
+    if (this._unsubRecords) {
+      this._unsubRecords()
+      this._unsubRecords = null
     }
   },
 
@@ -131,6 +152,13 @@ Page({
   onGoHealth: function () {
     wx.navigateTo({
       url: '/pages/health/health'
+    })
+  },
+
+  /** 跳转到健康档案 */
+  onGoHealthRecord: function () {
+    wx.navigateTo({
+      url: '/pages/health-record/health-record'
     })
   }
 })

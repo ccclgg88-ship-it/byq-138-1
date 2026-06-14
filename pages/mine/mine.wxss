@@ -164,6 +164,16 @@
   font-weight: 500;
 }
 
+.cell__tag-purple {
+  font-size: 22rpx;
+  color: #9B6BFF;
+  background: linear-gradient(135deg, #F0E8FF, #FFE4EA);
+  padding: 6rpx 18rpx;
+  border-radius: 16rpx;
+  margin-right: 8rpx;
+  font-weight: 500;
+}
+
 /* ========== 危险操作 ========== */
 .cell--danger:active {
   background: #FFF0F0;

@@ -33,6 +33,44 @@
     </view>
   </view>
 
+  <!-- 本周症状速览 -->
+  <view class="section symptom-preview-section" bindtap="onGoHealthRecord">
+    <view class="symptom-preview-card">
+      <view class="sp-header">
+        <view class="sp-title-wrap">
+          <text class="sp-icon">📊</text>
+          <text class="sp-title">本周症状速览</text>
+        </view>
+        <text class="sp-link">健康档案 ›</text>
+      </view>
+      <view class="sp-stats">
+        <view class="sp-stat-item">
+          <view class="sp-stat-value">{{weeklyOverview.recordCount}}/7</view>
+          <view class="sp-stat-label">天记录</view>
+        </view>
+        <view class="sp-stat-divider"></view>
+        <view class="sp-stat-item">
+          <view class="sp-stat-value sp-mood-icon">{{weeklyOverview.dominantMoodIcon || '—'}}</view>
+          <view class="sp-stat-label">主导心情</view>
+        </view>
+        <view class="sp-stat-divider"></view>
+        <view class="sp-stat-item">
+          <view class="sp-stat-value">{{weeklyOverview.topSymptoms.length}}</view>
+          <view class="sp-stat-label">种症状</view>
+        </view>
+      </view>
+      <view class="sp-symptoms" wx:if="{{weeklyOverview.topSymptoms.length}}">
+        <view class="sp-symptom-chip" wx:for="{{weeklyOverview.topSymptoms}}" wx:key="key">
+          <text class="sp-chip-icon">{{item.icon}}</text>
+          <text class="sp-chip-label">{{item.label}}</text>
+        </view>
+      </view>
+      <view class="sp-empty" wx:else>
+        <text class="sp-empty-text">还没有症状记录，开始记录发现身体规律</text>
+      </view>
+    </view>
+  </view>
+
   <!-- 浮动操作按钮 -->
   <view
     class="fab {{isInPeriod ? 'fab--end' : 'fab--start'}}"

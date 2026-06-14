@@ -1,0 +1,812 @@
+.health-record-page {
+  min-height: 100vh;
+  background: #F8F4FF;
+  padding-bottom: 40rpx;
+}
+
+.bottom-spacer {
+  height: calc(40rpx + env(safe-area-inset-bottom));
+}
+
+/* 概览卡片 */
+.overview-card {
+  margin: 24rpx;
+  background: linear-gradient(135deg, #9B6BFF 0%, #B892FF 100%);
+  border-radius: 28rpx;
+  padding: 32rpx;
+  color: #FFF;
+  box-shadow: 0 8rpx 32rpx rgba(155, 107, 255, 0.3);
+}
+
+.overview-header {
+  margin-bottom: 28rpx;
+}
+
+.overview-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  margin-bottom: 6rpx;
+}
+
+.overview-sub {
+  font-size: 24rpx;
+  opacity: 0.85;
+}
+
+.overview-stats {
+  display: flex;
+  align-items: center;
+  margin-bottom: 28rpx;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 40rpx;
+  font-weight: 700;
+  margin-bottom: 6rpx;
+}
+
+.stat-icon {
+  font-size: 36rpx;
+}
+
+.stat-label {
+  font-size: 22rpx;
+  opacity: 0.85;
+}
+
+.stat-divider {
+  width: 2rpx;
+  height: 60rpx;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.overview-symptoms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.symptom-chip {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 10rpx 18rpx;
+  border-radius: 24rpx;
+  font-size: 22rpx;
+}
+
+.chip-icon {
+  font-size: 24rpx;
+}
+
+.chip-label {
+  font-weight: 500;
+}
+
+.chip-count {
+  opacity: 0.9;
+}
+
+/* Tab 栏 */
+.tab-bar {
+  display: flex;
+  background: #FFF;
+  margin: 0 24rpx 20rpx;
+  border-radius: 20rpx;
+  padding: 8rpx;
+  box-shadow: 0 4rpx 16rpx rgba(155, 107, 255, 0.08);
+  overflow-x: auto;
+}
+
+.tab-item {
+  flex: 1;
+  min-width: 120rpx;
+  text-align: center;
+  padding: 18rpx 12rpx;
+  font-size: 24rpx;
+  color: #666;
+  border-radius: 14rpx;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.tab-item.active {
+  background: linear-gradient(135deg, #9B6BFF, #B892FF);
+  color: #FFF;
+  font-weight: 600;
+  box-shadow: 0 4rpx 12rpx rgba(155, 107, 255, 0.3);
+}
+
+/* 内容区 */
+.content-area {
+  padding: 0 24rpx;
+}
+
+.section-card {
+  background: #FFF;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(155, 107, 255, 0.08);
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6rpx;
+}
+
+.card-sub {
+  font-size: 22rpx;
+  color: #999;
+  margin-bottom: 24rpx;
+}
+
+/* 趋势图 */
+.trend-chart {
+  margin-bottom: 20rpx;
+}
+
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  height: 240rpx;
+  gap: 4rpx;
+  padding-bottom: 8rpx;
+}
+
+.chart-bar-wrap {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+}
+
+.chart-bar {
+  width: 80%;
+  min-height: 6rpx;
+  border-radius: 4rpx 4rpx 0 0;
+  transition: height 0.3s;
+}
+
+.chart-bar--menstrual {
+  background: linear-gradient(180deg, #FF6B8A, #FFB3C1);
+}
+
+.chart-bar--follicular {
+  background: linear-gradient(180deg, #9B6BFF, #D4BFFF);
+}
+
+.chart-bar--ovulation {
+  background: linear-gradient(180deg, #FFB347, #FFD699);
+}
+
+.chart-bar--luteal {
+  background: linear-gradient(180deg, #FF9EAE, #FFD3DC);
+}
+
+.chart-xaxis {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 8rpx;
+  border-top: 1rpx solid #F0F0F0;
+}
+
+.xlabel {
+  font-size: 20rpx;
+  color: #999;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx dashed #F0F0F0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 22rpx;
+  color: #666;
+}
+
+.legend-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 4rpx;
+}
+
+.legend-dot--menstrual { background: #FF6B8A; }
+.legend-dot--follicular { background: #9B6BFF; }
+.legend-dot--ovulation { background: #FFB347; }
+.legend-dot--luteal { background: #FF9EAE; }
+
+/* 症状详情列表 */
+.symptom-detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.symptom-detail-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 12rpx;
+  border-radius: 16rpx;
+  transition: all 0.2s;
+  gap: 16rpx;
+}
+
+.symptom-detail-item:active {
+  background: #F8F4FF;
+}
+
+.sd-icon {
+  font-size: 36rpx;
+  flex-shrink: 0;
+}
+
+.sd-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.sd-name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 4rpx;
+}
+
+.sd-count {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.sd-arrow {
+  font-size: 32rpx;
+  color: #CCC;
+}
+
+/* 阶段分布 */
+.phase-symptom-block {
+  margin-bottom: 28rpx;
+}
+
+.phase-symptom-block:last-child {
+  margin-bottom: 0;
+}
+
+.phase-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+  padding-bottom: 12rpx;
+  border-bottom: 1rpx dashed #F0F0F0;
+}
+
+.phase-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #9B6BFF;
+}
+
+.phase-count {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.phase-symptom-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.phase-symptom-item {
+  padding: 0 8rpx;
+}
+
+.psi-row {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin-bottom: 8rpx;
+}
+
+.psi-icon {
+  font-size: 26rpx;
+}
+
+.psi-label {
+  flex: 1;
+  font-size: 24rpx;
+  color: #333;
+}
+
+.psi-count {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.psi-bar {
+  height: 12rpx;
+  background: #F5F5F7;
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.psi-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #9B6BFF, #B892FF);
+  border-radius: 6rpx;
+  transition: width 0.5s;
+}
+
+/* 体温图 */
+.temp-stats {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 24rpx;
+}
+
+.temp-stat-item {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx;
+  background: #F8F4FF;
+  border-radius: 16rpx;
+}
+
+.ts-value {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #9B6BFF;
+  margin-bottom: 4rpx;
+}
+
+.ts-label {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.temp-chart {
+  position: relative;
+  height: 280rpx;
+  margin-bottom: 24rpx;
+  padding-left: 60rpx;
+}
+
+.temp-chart-y {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 20rpx;
+  color: #999;
+  width: 56rpx;
+  text-align: right;
+  padding-right: 8rpx;
+}
+
+.temp-y-label {
+  line-height: 1;
+}
+
+.temp-line-chart {
+  position: relative;
+  height: 240rpx;
+  background: linear-gradient(180deg, #F8F4FF 0%, #FFF 100%);
+  border-radius: 12rpx;
+}
+
+.temp-point {
+  position: absolute;
+  transform: translate(-50%, 50%);
+  z-index: 2;
+}
+
+.temp-point-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  border: 2rpx solid #FFF;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.temp-point--menstrual .temp-point-dot { background: #FF6B8A; }
+.temp-point--follicular .temp-point-dot { background: #9B6BFF; }
+.temp-point--ovulation .temp-point-dot { background: #FFB347; }
+.temp-point--luteal .temp-point-dot { background: #FF9EAE; }
+
+.temp-insights {
+  background: #FFF8F0;
+  border-radius: 16rpx;
+  padding: 20rpx;
+}
+
+.insight-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #E69500;
+  margin-bottom: 12rpx;
+}
+
+.insight-text {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 8rpx;
+}
+
+.insight-text:last-child {
+  margin-bottom: 0;
+}
+
+/* 情绪分析 */
+.mood-score {
+  text-align: center;
+  padding: 28rpx;
+  background: linear-gradient(135deg, #F8F4FF, #FFF0F5);
+  border-radius: 20rpx;
+  margin-bottom: 24rpx;
+}
+
+.mood-score-value {
+  font-size: 56rpx;
+  font-weight: 700;
+  color: #9B6BFF;
+  line-height: 1;
+  margin-bottom: 8rpx;
+}
+
+.mood-score-label {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.mood-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.mood-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.mood-bar-icon {
+  font-size: 32rpx;
+  width: 48rpx;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.mood-bar-track {
+  flex: 1;
+  height: 16rpx;
+  background: #F5F5F7;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.mood-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #9B6BFF, #FF9EAE);
+  border-radius: 8rpx;
+  transition: width 0.5s;
+}
+
+.mood-bar-count {
+  font-size: 22rpx;
+  color: #999;
+  width: 70rpx;
+  text-align: right;
+}
+
+.insight-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.insight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12rpx;
+  padding: 16rpx;
+  background: #FFF8F0;
+  border-radius: 12rpx;
+}
+
+.insight-dot {
+  font-size: 24rpx;
+  flex-shrink: 0;
+}
+
+.insight-item .insight-text {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.6;
+  flex: 1;
+}
+
+/* 月度小结 */
+.monthly-summary-text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.7;
+  padding: 20rpx;
+  background: #F8F4FF;
+  border-radius: 16rpx;
+  margin-bottom: 24rpx;
+  border-left: 6rpx solid #9B6BFF;
+}
+
+.monthly-stats {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 28rpx;
+}
+
+.ms-item {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 12rpx;
+  background: #FAFAFC;
+  border-radius: 16rpx;
+}
+
+.ms-value {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #9B6BFF;
+  margin-bottom: 6rpx;
+}
+
+.ms-icon {
+  font-size: 28rpx;
+}
+
+.ms-label {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.ms-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16rpx;
+}
+
+.ms-symptom-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.ms-symptom-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 12rpx 20rpx;
+  background: #FFF0F5;
+  border-radius: 24rpx;
+  transition: all 0.2s;
+}
+
+.ms-symptom-item:active {
+  transform: scale(0.96);
+}
+
+.ms-sym-icon {
+  font-size: 26rpx;
+}
+
+.ms-sym-label {
+  font-size: 24rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.ms-sym-count {
+  font-size: 22rpx;
+  color: #FF6B8A;
+}
+
+.health-tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.ht-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 16rpx;
+  background: #FAFAFC;
+  border-radius: 14rpx;
+}
+
+.ht-icon {
+  font-size: 32rpx;
+  flex-shrink: 0;
+}
+
+.ht-text {
+  flex: 1;
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 40rpx;
+  background: #FFF;
+  border-radius: 24rpx;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 26rpx;
+  color: #999;
+  text-align: center;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+/* 症状详情弹窗 */
+.insight-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 48rpx;
+}
+
+.insight-modal-content {
+  background: #FFF;
+  border-radius: 28rpx;
+  width: 100%;
+  max-height: 80vh;
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(60rpx);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.insight-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 28rpx;
+  background: linear-gradient(135deg, #FFF0F5, #F8F4FF);
+  position: relative;
+}
+
+.insight-modal-icon {
+  font-size: 40rpx;
+}
+
+.insight-modal-title {
+  flex: 1;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #333;
+}
+
+.insight-modal-close {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.08);
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+}
+
+.insight-modal-body {
+  padding: 28rpx;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.im-section {
+  margin-bottom: 24rpx;
+}
+
+.im-section:last-child {
+  margin-bottom: 0;
+}
+
+.im-section-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #9B6BFF;
+  margin-bottom: 12rpx;
+}
+
+.im-text {
+  font-size: 26rpx;
+  color: #333;
+  line-height: 1.7;
+}
+
+.im-tip {
+  display: flex;
+  gap: 12rpx;
+  padding: 12rpx 0;
+  border-bottom: 1rpx dashed #F0F0F0;
+}
+
+.im-tip:last-child {
+  border-bottom: none;
+}
+
+.im-tip-num {
+  font-size: 24rpx;
+  color: #FF6B8A;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.im-tip-text {
+  flex: 1;
+  font-size: 26rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+.im-action {
+  padding: 24rpx 28rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: #9B6BFF;
+  font-weight: 500;
+  border-top: 1rpx solid #F0F0F0;
+}

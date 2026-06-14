@@ -50,6 +50,38 @@
       </view>
     </view>
 
+    <!-- 症状健康档案入口 -->
+    <view class="card symptom-entry-card" bindtap="onGoHealthRecord">
+      <view class="symptom-entry-header">
+        <view class="se-icon">📊</view>
+        <view class="se-info">
+          <view class="se-title">症状健康档案</view>
+          <view class="se-sub">症状趋势 · 阶段分布 · 体温曲线</view>
+        </view>
+        <view class="se-arrow">›</view>
+      </view>
+      <view class="symptom-entry-stats">
+        <view class="se-stat">
+          <view class="se-stat-value">{{weeklyOverview.recordCount}}/7</view>
+          <view class="se-stat-label">本周记录</view>
+        </view>
+        <view class="se-stat">
+          <view class="se-stat-value se-stat-mood">{{weeklyOverview.dominantMoodIcon || '—'}}</view>
+          <view class="se-stat-label">主导心情</view>
+        </view>
+        <view class="se-stat">
+          <view class="se-stat-value">{{weeklyOverview.topSymptoms.length}}</view>
+          <view class="se-stat-label">常见症状</view>
+        </view>
+      </view>
+      <view class="symptom-entry-tags" wx:if="{{weeklyOverview.topSymptoms.length}}">
+        <view class="se-tag" wx:for="{{weeklyOverview.topSymptoms}}" wx:key="key">
+          <text class="se-tag-icon">{{item.icon}}</text>
+          <text class="se-tag-label">{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+
     <!-- 3. 智能预测卡片 -->
     <view class="card predict-card" wx:if="{{predictions.nextPeriod}}">
       <view class="card__title" style="color: #6B5CE7;">智能预测</view>
