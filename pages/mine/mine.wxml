@@ -1,0 +1,97 @@
+<view class="page">
+
+  <!-- 顶部用户卡片 -->
+  <view class="profile-card">
+    <view class="profile-card__avatar">🌸</view>
+    <view class="profile-card__info">
+      <text class="profile-card__title">花期记录</text>
+      <text class="profile-card__token">{{tokenDisplay}}</text>
+    </view>
+    <view class="profile-card__stat">
+      <text class="profile-card__stat-num">{{periodCount}}</text>
+      <text class="profile-card__stat-label">次经期记录</text>
+    </view>
+  </view>
+
+  <!-- 周期设置 -->
+  <view class="section">
+    <view class="section__title">周期设置</view>
+    <view class="card">
+      <picker
+        mode="selector"
+        range="{{cycleRange}}"
+        value="{{cycleIndex}}"
+        bindchange="onCycleLengthChange"
+      >
+        <view class="cell">
+          <text class="cell__label">经期周期</text>
+          <view class="cell__value">
+            <text>{{cycleLength}} 天</text>
+            <text class="cell__arrow">›</text>
+          </view>
+        </view>
+      </picker>
+
+      <view class="cell__divider"></view>
+
+      <picker
+        mode="selector"
+        range="{{periodRange}}"
+        value="{{periodIndex}}"
+        bindchange="onPeriodLengthChange"
+      >
+        <view class="cell">
+          <text class="cell__label">经期持续</text>
+          <view class="cell__value">
+            <text>{{periodLength}} 天</text>
+            <text class="cell__arrow">›</text>
+          </view>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="section">
+    <view class="section__title">更多功能</view>
+    <view class="card">
+      <!--<view class="cell" bindtap="onExportData">
+        <text class="cell__label">导出数据</text>
+        <view class="cell__value">
+          <text class="cell__tag">即将推出</text>
+          <text class="cell__arrow">›</text>
+        </view>
+      </view>-->
+
+      <view class="cell__divider"></view>
+
+      <view class="cell" bindtap="onAbout">
+        <text class="cell__label">关于花期记录</text>
+        <view class="cell__value">
+          <text>{{version}}</text>
+          <text class="cell__arrow">›</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 数据管理 -->
+  <view class="section">
+    <view class="section__title">数据管理</view>
+    <view class="card">
+      <view class="cell cell--danger" bindtap="onClearData">
+        <text class="cell__label cell__label--danger">清除所有数据</text>
+        <text class="cell__arrow cell__arrow--danger">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部信息 -->
+  <view class="footer">
+    <text class="footer__version">{{version}}</text>
+    <text class="footer__slogan">用心记录，关爱自己</text>
+  </view>
+
+  <!-- 底部安全区占位 -->
+  <view class="bottom-spacer"></view>
+</view>

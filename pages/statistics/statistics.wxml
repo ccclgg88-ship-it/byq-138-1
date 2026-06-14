@@ -1,0 +1,105 @@
+<view class="page">
+
+  <!-- 空状态 -->
+  <view class="empty" wx:if="{{!hasData}}">
+    <view class="empty__icon">📊</view>
+    <view class="empty__title">暂无分析数据</view>
+    <view class="empty__desc">记录至少1次经期后，即可查看统计分析</view>
+    <navigator url="/pages/index/index" open-type="switchTab" class="empty__btn">去记录</navigator>
+  </view>
+
+  <block wx:if="{{hasData}}">
+
+    <!-- 1. 顶部概览卡片 -->
+    <view class="card overview-card">
+      <view class="overview-row">
+        <view class="overview-item">
+          <view class="overview-value">{{cycleAnalysis.avgCycle}}</view>
+          <view class="overview-label">平均周期(天)</view>
+        </view>
+        <view class="overview-divider"></view>
+        <view class="overview-item">
+          <view class="overview-value">{{cycleAnalysis.avgPeriod}}</view>
+          <view class="overview-label">平均经期(天)</view>
+        </view>
+        <view class="overview-divider"></view>
+        <view class="overview-item">
+          <view class="overview-value">{{cycleAnalysis.totalRecords}}</view>
+          <view class="overview-label">记录次数</view>
+        </view>
+      </view>
+      <view class="regularity-tag regularity-tag--{{cycleAnalysis.regularity}}">
+        {{cycleAnalysis.regularityText}}
+      </view>
+    </view>
+
+    <!-- 2. 周期趋势图 -->
+    <view class="card" wx:if="{{trendData.length}}">
+      <view class="card__title">周期趋势</view>
+      <view class="chart">
+        <view class="chart__bars" style="height: {{trendMaxHeight + 40}}rpx;">
+          <view class="chart__avg-line" style="bottom: {{avgLineBottom}}rpx;">
+            <text class="chart__avg-text">均值 {{cycleAnalysis.avgCycle}}天</text>
+          </view>
+          <view class="chart__bar-wrap" wx:for="{{trendData}}" wx:key="cycle">
+            <view class="chart__value">{{item.length}}</view>
+            <view class="chart__bar" style="height: {{item.height}}rpx;"></view>
+            <view class="chart__label">{{item.startDate}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 3. 智能预测卡片 -->
+    <view class="card predict-card" wx:if="{{predictions.nextPeriod}}">
+      <view class="card__title" style="color: #6B5CE7;">智能预测</view>
+      <view class="predict-grid">
+        <view class="predict-item">
+          <view class="predict-item__label">下次经期</view>
+          <view class="predict-item__value">{{predictions.nextPeriod}}</view>
+        </view>
+        <view class="predict-item">
+          <view class="predict-item__label">排卵日</view>
+          <view class="predict-item__value">{{predictions.nextOvulation}}</view>
+        </view>
+        <view class="predict-item predict-item--wide">
+          <view class="predict-item__label">易孕窗口</view>
+          <view class="predict-item__value">{{predictions.fertileWindow.start}} ~ {{predictions.fertileWindow.end}}</view>
+        </view>
+      </view>
+      <view class="confidence-tag confidence-tag--{{predictions.confidence}}">
+        置信度：{{predictions.confidence === 'high' ? '高' : predictions.confidence === 'medium' ? '中' : '低'}}
+      </view>
+    </view>
+
+    <!-- 4. 健康建议 -->
+    <view class="card" wx:if="{{healthTips.length}}">
+      <view class="card__title">健康建议</view>
+      <view class="tips-list">
+        <view class="tip-item" wx:for="{{healthTips}}" wx:key="title">
+          <view class="tip-item__icon">{{item.icon}}</view>
+          <view class="tip-item__content">
+            <view class="tip-item__title">{{item.title}}</view>
+            <view class="tip-item__text">{{item.text}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 5. 数据洞察 -->
+    <view class="card" wx:if="{{insights.length || anomalies.length}}">
+      <view class="card__title">数据洞察</view>
+      <view class="insight-item" wx:for="{{insights}}" wx:key="*this">
+        <view class="insight-dot"></view>
+        <text class="insight-text">{{item}}</text>
+      </view>
+      <view class="anomaly-item anomaly-item--{{item.level}}" wx:for="{{anomalies}}" wx:key="text">
+        <text class="anomaly-icon">{{item.level === 'warning' ? '⚠️' : 'ℹ️'}}</text>
+        <text class="anomaly-text">{{item.text}}</text>
+      </view>
+    </view>
+
+  </block>
+
+  <view class="bottom-spacer"></view>
+</view>

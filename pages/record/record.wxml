@@ -1,0 +1,123 @@
+<!--pages/record/record.wxml - 日期记录页-->
+<view class="page-container record-page">
+
+  <!-- 日期信息头 -->
+  <view class="date-header">
+    <view class="date-text">{{displayDate}}</view>
+    <view class="phase-tag {{phaseClass}}" wx:if="{{phaseLabel}}">{{phaseLabel}}</view>
+  </view>
+
+  <!-- 经期操作区 -->
+  <view class="card period-card">
+    <view class="card-title">经期状态</view>
+
+    <!-- 已记录经期 -->
+    <block wx:if="{{isInPeriod}}">
+      <view class="period-info">
+        <view class="period-day-badge">经期第{{periodDayNum}}天</view>
+      </view>
+      <view class="period-actions">
+        <button class="btn-secondary period-btn" bindtap="onSetEndDate">设为结束日</button>
+        <button class="btn-danger period-btn" bindtap="onDeletePeriod">删除记录</button>
+      </view>
+    </block>
+
+    <!-- 预测经期 -->
+    <block wx:elif="{{isPredicted}}">
+      <view class="period-info">
+        <view class="predict-hint">该日期为预测经期</view>
+      </view>
+      <button class="btn-primary period-confirm-btn" bindtap="onConfirmPredicted">确认为实际经期</button>
+    </block>
+
+    <!-- 非经期 -->
+    <block wx:else>
+      <view class="period-info">
+        <view class="no-period-hint">该日期暂无经期记录</view>
+      </view>
+      <button class="btn-primary period-confirm-btn" bindtap="onMarkPeriodStart">标记为经期开始</button>
+    </block>
+  </view>
+
+  <!-- 每日记录区 -->
+  <view class="card daily-card">
+    <view class="card-title">每日记录</view>
+
+    <!-- 经血量 -->
+    <view class="section">
+      <view class="section-label">经血量</view>
+      <view class="flow-options">
+        <view class="flow-item {{flow === 'light' ? 'active' : ''}}" bindtap="onFlowSelect" data-flow="light">
+          <view class="flow-dot flow-light"></view>
+          <text>轻</text>
+        </view>
+        <view class="flow-item {{flow === 'medium' ? 'active' : ''}}" bindtap="onFlowSelect" data-flow="medium">
+          <view class="flow-dot flow-medium"></view>
+          <text>中</text>
+        </view>
+        <view class="flow-item {{flow === 'heavy' ? 'active' : ''}}" bindtap="onFlowSelect" data-flow="heavy">
+          <view class="flow-dot flow-heavy"></view>
+          <text>重</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 症状选择 -->
+    <view class="section">
+      <view class="section-label">症状</view>
+      <view class="symptom-tags">
+        <view
+          wx:for="{{symptomList}}" wx:key="key"
+          class="symptom-tag {{item.selected ? 'active' : ''}}"
+          bindtap="onSymptomToggle" data-key="{{item.key}}"
+        >{{item.label}}</view>
+      </view>
+    </view>
+
+    <!-- 心情选择 -->
+    <view class="section">
+      <view class="section-label">心情</view>
+      <view class="mood-options">
+        <view
+          wx:for="{{moodList}}" wx:key="key"
+          class="mood-item {{mood === item.key ? 'active' : ''}}"
+          bindtap="onMoodSelect" data-mood="{{item.key}}"
+        >
+          <text class="mood-emoji">{{item.emoji}}</text>
+          <text class="mood-label">{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 体温记录 -->
+    <view class="section">
+      <view class="section-label">体温 (°C)</view>
+      <input
+        class="temp-input"
+        type="digit"
+        placeholder="选填，如 36.5"
+        value="{{temperature}}"
+        bindinput="onTemperatureInput"
+      />
+    </view>
+
+    <!-- 备注 -->
+    <view class="section">
+      <view class="section-label">备注</view>
+      <textarea
+        class="notes-input"
+        placeholder="记录今天的感受..."
+        value="{{notes}}"
+        bindinput="onNotesInput"
+        maxlength="200"
+        auto-height
+      />
+    </view>
+  </view>
+
+  <!-- 保存按钮 -->
+  <view class="save-area">
+    <button class="btn-primary save-btn" bindtap="onSave">保存记录</button>
+  </view>
+
+</view>

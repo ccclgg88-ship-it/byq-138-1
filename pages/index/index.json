@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "calendar": "../../components/calendar/calendar",
+    "period-status": "../../components/period-status/period-status",
+    "tip-card": "../../components/tip-card/tip-card"
+  }
+}

@@ -1,0 +1,256 @@
+/* pages/record/record.wxss */
+
+.record-page {
+  padding-bottom: 60rpx;
+}
+
+/* ===== 日期信息头 ===== */
+.date-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48rpx 32rpx 32rpx;
+}
+
+.date-text {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 16rpx;
+}
+
+.phase-tag {
+  display: inline-block;
+  padding: 8rpx 28rpx;
+  border-radius: 24rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.phase-menstrual,
+.phase-predicted_menstrual {
+  background: var(--color-primary-pale);
+  color: var(--color-primary);
+}
+
+.phase-ovulation {
+  background: var(--color-fertile);
+  color: var(--color-ovulation);
+}
+
+.phase-follicular,
+.phase-luteal {
+  background: #E8F4FD;
+  color: #5B9BD5;
+}
+
+.phase-safe,
+.phase-unknown {
+  background: var(--color-safe-bg);
+  color: var(--color-safe);
+}
+
+/* ===== 经期操作区 ===== */
+.period-card {
+  margin-top: 8rpx;
+}
+
+.period-info {
+  margin-bottom: 24rpx;
+}
+
+.period-day-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+  padding: 12rpx 32rpx;
+  border-radius: 28rpx;
+}
+
+.period-actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.period-btn {
+  flex: 1;
+  font-size: 26rpx;
+  padding: 16rpx 0;
+  border-radius: var(--radius-xl);
+}
+
+.btn-danger {
+  background: #FFF0F0;
+  color: #E74C3C;
+  border: none;
+  border-radius: var(--radius-xl);
+  font-size: 26rpx;
+  padding: 16rpx 0;
+}
+
+.btn-danger::after {
+  border: none;
+}
+
+.predict-hint {
+  font-size: 28rpx;
+  color: var(--color-ovulation);
+  font-weight: 500;
+}
+
+.no-period-hint {
+  font-size: 28rpx;
+  color: var(--color-text-light);
+}
+
+.period-confirm-btn {
+  margin-top: 8rpx;
+  width: 100%;
+  font-size: 28rpx;
+}
+
+/* ===== 每日记录区 ===== */
+.section {
+  margin-bottom: 36rpx;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.section-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 16rpx;
+}
+
+/* 经血量 */
+.flow-options {
+  display: flex;
+  justify-content: center;
+  gap: 48rpx;
+}
+
+.flow-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10rpx;
+  padding: 16rpx 24rpx;
+  border-radius: var(--radius-md);
+  transition: all 0.2s;
+  font-size: 24rpx;
+  color: var(--color-text-secondary);
+}
+
+.flow-item.active {
+  background: var(--color-primary-pale);
+  color: var(--color-primary);
+}
+
+.flow-dot {
+  border-radius: 50%;
+  background: var(--color-border);
+  transition: background 0.2s;
+}
+
+.flow-light { width: 32rpx; height: 32rpx; }
+.flow-medium { width: 44rpx; height: 44rpx; }
+.flow-heavy { width: 56rpx; height: 56rpx; }
+
+.flow-item.active .flow-dot {
+  background: var(--color-primary);
+}
+
+/* 症状标签 */
+.symptom-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.symptom-tag {
+  padding: 12rpx 28rpx;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  background: #F5F5F5;
+  color: var(--color-text-secondary);
+  transition: all 0.2s;
+}
+
+.symptom-tag.active {
+  background: var(--color-primary-pale);
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+/* 心情选择 */
+.mood-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mood-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  padding: 16rpx 12rpx;
+  border-radius: var(--radius-md);
+  transition: all 0.2s;
+  min-width: 100rpx;
+}
+
+.mood-item.active {
+  background: var(--color-primary-pale);
+}
+
+.mood-emoji {
+  font-size: 48rpx;
+}
+
+.mood-label {
+  font-size: 22rpx;
+  color: var(--color-text-secondary);
+}
+
+.mood-item.active .mood-label {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+/* 体温输入 */
+.temp-input {
+  background: #F8F8F8;
+  border-radius: var(--radius-md);
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+
+/* 备注输入 */
+.notes-input {
+  background: #F8F8F8;
+  border-radius: var(--radius-md);
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  color: var(--color-text);
+  width: 100%;
+  min-height: 120rpx;
+  box-sizing: border-box;
+}
+
+/* ===== 保存按钮 ===== */
+.save-area {
+  padding: 24rpx 24rpx 48rpx;
+}
+
+.save-btn {
+  /* width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 32rpx; */
+}

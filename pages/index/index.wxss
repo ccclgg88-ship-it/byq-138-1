@@ -1,0 +1,51 @@
+.page {
+  min-height: 100vh;
+  background-color: #FFF5F7;
+  padding: 24rpx 24rpx 0;
+  box-sizing: border-box;
+}
+
+.section {
+  margin-bottom: 20rpx;
+}
+
+/* 浮动操作按钮 */
+.fab {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom) + 130rpx);
+  left: 50%;
+  transform: translateX(-50%);
+  height: 88rpx;
+  padding: 0 56rpx;
+  border-radius: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(255, 107, 138, 0.35);
+  z-index: 100;
+}
+
+.fab--start {
+  background: linear-gradient(135deg, #FF9AB2 0%, #FF6B8A 100%);
+}
+
+.fab--end {
+  background: #D94F6B;
+}
+
+.fab__text {
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+  letter-spacing: 2rpx;
+}
+
+.fab:active {
+  opacity: 0.85;
+  transform: translateX(-50%) scale(0.96);
+}
+
+/* 底部占位 */
+.bottom-spacer {
+  height: 200rpx;
+}

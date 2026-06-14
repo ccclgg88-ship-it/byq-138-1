@@ -1,0 +1,12 @@
+<view class="tip-card">
+  <view class="tip-body">
+    <view class="tip-icon">{{tip.icon || '💡'}}</view>
+    <view class="tip-text">{{tip.text}}</view>
+  </view>
+  <view class="tip-footer">
+    <view class="refresh-btn" bindtap="onRefresh">
+      <text class="refresh-icon">↻</text>
+      <text class="refresh-text">换一条</text>
+    </view>
+  </view>
+</view>

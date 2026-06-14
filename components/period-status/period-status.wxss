@@ -1,0 +1,130 @@
+.status-card {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 28rpx;
+  padding: 36rpx 32rpx;
+  box-shadow: 0 8rpx 32rpx rgba(255, 107, 138, 0.10);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 经期中：淡粉渐变背景 */
+.status-card.in-period {
+  background: linear-gradient(135deg, #FFF0F3 0%, #FFE4EA 50%, #FFF5F7 100%);
+  box-shadow: 0 8rpx 36rpx rgba(255, 107, 138, 0.18);
+}
+
+/* ===== 左侧环形进度 ===== */
+.ring-wrapper {
+  flex-shrink: 0;
+  margin-right: 32rpx;
+}
+
+.ring-bg {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: #F5F5FA;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.in-period .ring-bg {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.ring-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  /* conic-gradient 由 style 动态设置 */
+}
+
+.ring-inner {
+  width: 116rpx;
+  height: 116rpx;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.in-period .ring-inner {
+  background: #FFF5F7;
+}
+
+.ring-day {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #2D2D3A;
+  line-height: 1;
+}
+
+.in-period .ring-day {
+  color: #FF6B8A;
+}
+
+.ring-label {
+  font-size: 20rpx;
+  color: #9B9BAD;
+  margin-top: 2rpx;
+}
+
+/* ===== 右侧信息区 ===== */
+.info-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.status-text {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #2D2D3A;
+  line-height: 1.3;
+}
+
+.in-period .status-text {
+  color: #FF6B8A;
+}
+
+.phase-tag {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  letter-spacing: 1rpx;
+}
+
+.predict-row {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin-top: 2rpx;
+}
+
+.predict-label {
+  font-size: 24rpx;
+  color: #9B9BAD;
+}
+
+.predict-date {
+  font-size: 24rpx;
+  color: #666666;
+  font-weight: 500;
+}

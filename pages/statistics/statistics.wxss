@@ -1,0 +1,334 @@
+.page {
+  min-height: 100vh;
+  background-color: #FFF5F7;
+  padding: 24rpx 24rpx 0;
+  box-sizing: border-box;
+}
+
+/* 通用卡片 */
+.card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(255, 107, 138, 0.08);
+}
+
+.card__title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 24rpx;
+}
+
+/* 1. 概览卡片 */
+.overview-card {
+  background: linear-gradient(135deg, #FF6B8A 0%, #FF9AB2 100%);
+  padding: 36rpx 24rpx 28rpx;
+}
+
+.overview-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.overview-item {
+  flex: 1;
+  text-align: center;
+}
+
+.overview-value {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.overview-label {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 8rpx;
+}
+
+.overview-divider {
+  width: 1rpx;
+  height: 48rpx;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.regularity-tag {
+  text-align: center;
+  margin-top: 20rpx;
+  font-size: 24rpx;
+  padding: 6rpx 24rpx;
+  border-radius: 20rpx;
+  display: inline-block;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.regularity-tag--regular {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.regularity-tag--slightly_irregular {
+  background: rgba(255, 200, 100, 0.4);
+  color: #fff;
+}
+
+.regularity-tag--irregular {
+  background: rgba(255, 100, 100, 0.4);
+  color: #fff;
+}
+
+/* 2. 周期趋势图 */
+.chart {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.chart__bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  position: relative;
+  padding-top: 40rpx;
+  min-width: 100%;
+}
+
+.chart__avg-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 2rpx dashed #FF6B8A;
+  z-index: 1;
+}
+
+.chart__avg-text {
+  position: absolute;
+  right: 0;
+  top: -32rpx;
+  font-size: 20rpx;
+  color: #FF6B8A;
+}
+
+.chart__bar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-width: 60rpx;
+  z-index: 2;
+}
+
+.chart__value {
+  font-size: 20rpx;
+  color: #FF6B8A;
+  font-weight: 600;
+  margin-bottom: 6rpx;
+}
+
+.chart__bar {
+  width: 36rpx;
+  border-radius: 18rpx 18rpx 4rpx 4rpx;
+  background: linear-gradient(180deg, #FF9AB2 0%, #FF6B8A 100%);
+}
+
+.chart__label {
+  font-size: 18rpx;
+  color: #999;
+  margin-top: 8rpx;
+  white-space: nowrap;
+}
+/* 3. 预测卡片 */
+.predict-card {
+  background: linear-gradient(135deg, #EDE7F6 0%, #F3E5F5 50%, #FCE4EC 100%);
+}
+
+.predict-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.predict-item {
+  flex: 1;
+  min-width: 40%;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 16rpx;
+  padding: 20rpx;
+}
+
+.predict-item--wide {
+  flex-basis: 100%;
+}
+
+.predict-item__label {
+  font-size: 22rpx;
+  color: #7E57C2;
+  margin-bottom: 8rpx;
+}
+
+.predict-item__value {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #4A148C;
+}
+
+.confidence-tag {
+  display: inline-block;
+  margin-top: 16rpx;
+  font-size: 22rpx;
+  padding: 4rpx 20rpx;
+  border-radius: 16rpx;
+}
+
+.confidence-tag--high {
+  background: rgba(76, 175, 80, 0.15);
+  color: #2E7D32;
+}
+
+.confidence-tag--medium {
+  background: rgba(255, 152, 0, 0.15);
+  color: #E65100;
+}
+
+.confidence-tag--low {
+  background: rgba(158, 158, 158, 0.15);
+  color: #616161;
+}
+
+/* 4. 健康建议 */
+.tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.tip-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20rpx;
+}
+
+.tip-item__icon {
+  font-size: 40rpx;
+  flex-shrink: 0;
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tip-item__content {
+  flex: 1;
+}
+
+.tip-item__title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4rpx;
+}
+
+.tip-item__text {
+  font-size: 24rpx;
+  color: #777;
+  line-height: 1.5;
+}
+/* 5. 数据洞察 */
+.insight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.insight-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #FF6B8A;
+  margin-top: 12rpx;
+  flex-shrink: 0;
+}
+
+.insight-text {
+  font-size: 26rpx;
+  color: #555;
+  line-height: 1.6;
+}
+
+.anomaly-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12rpx;
+  padding: 16rpx 20rpx;
+  border-radius: 12rpx;
+  margin-bottom: 12rpx;
+}
+
+.anomaly-item--warning {
+  background: #FFF3E0;
+}
+
+.anomaly-item--info {
+  background: #E3F2FD;
+}
+
+.anomaly-icon {
+  font-size: 28rpx;
+  flex-shrink: 0;
+}
+
+.anomaly-text {
+  font-size: 24rpx;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* 6. 空状态 */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 200rpx;
+}
+
+.empty__icon {
+  font-size: 120rpx;
+  margin-bottom: 32rpx;
+}
+
+.empty__title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16rpx;
+}
+
+.empty__desc {
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 48rpx;
+}
+
+.empty__btn {
+  display: inline-block;
+  padding: 16rpx 56rpx;
+  background: linear-gradient(135deg, #FF9AB2 0%, #FF6B8A 100%);
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 600;
+  border-radius: 40rpx;
+  box-shadow: 0 8rpx 24rpx rgba(255, 107, 138, 0.3);
+}
+
+/* 底部占位 */
+.bottom-spacer {
+  height: 200rpx;
+}

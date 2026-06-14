@@ -1,0 +1,126 @@
+.tab-bar {
+  display: flex;
+  align-items: center;
+  height: 110rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+  background: #FFFFFF;
+  box-shadow: 0 -2rpx 20rpx rgba(255, 107, 138, 0.08);
+  position: relative;
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-top: 12rpx;
+}
+
+.tab-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-bottom: 4rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 首页图标 - 日历 */
+.icon-home .icon-inner {
+  width: 36rpx; height: 32rpx;
+  border: 3rpx solid #999;
+  border-radius: 4rpx;
+  position: relative;
+}
+.icon-home .icon-inner::before {
+  content: '';
+  position: absolute;
+  top: 10rpx; left: 4rpx;
+  width: 6rpx; height: 6rpx;
+  background: #999;
+  border-radius: 50%;
+  box-shadow: 12rpx 0 0 #999, 0 10rpx 0 #999, 12rpx 10rpx 0 #999;
+}
+.icon-home.active .icon-inner {
+  border-color: #FF6B8A;
+}
+.icon-home.active .icon-inner::before {
+  background: #FF6B8A;
+  box-shadow: 12rpx 0 0 #FF6B8A, 0 10rpx 0 #FF6B8A, 12rpx 10rpx 0 #FF6B8A;
+}
+
+/* 分析图标 - 柱状图 */
+.icon-chart .icon-inner {
+  width: 36rpx; height: 32rpx;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 2rpx;
+}
+.icon-chart .icon-inner::before {
+  content: '';
+  width: 8rpx; height: 16rpx;
+  background: #999;
+  border-radius: 2rpx 2rpx 0 0;
+  box-shadow: 12rpx 0 0 #999;
+}
+.icon-chart .icon-inner::after {
+  content: '';
+  width: 8rpx; height: 26rpx;
+  background: #999;
+  border-radius: 2rpx 2rpx 0 0;
+}
+.icon-chart.active .icon-inner::before {
+  background: #FF6B8A;
+  box-shadow: 12rpx 0 0 #FF6B8A;
+}
+.icon-chart.active .icon-inner::after {
+  background: #FF6B8A;
+}
+
+/* 我的图标 - 人形 */
+.icon-mine .icon-inner {
+  width: 16rpx; height: 16rpx;
+  border: 3rpx solid #999;
+  border-radius: 50%;
+  position: relative;
+}
+.icon-mine .icon-inner::after {
+  content: '';
+  position: absolute;
+  bottom: -18rpx; left: -8rpx;
+  width: 28rpx; height: 14rpx;
+  border: 3rpx solid #999;
+  border-radius: 14rpx 14rpx 0 0;
+  border-bottom: none;
+}
+.icon-mine.active .icon-inner {
+  border-color: #FF6B8A;
+}
+.icon-mine.active .icon-inner::after {
+  border-color: #FF6B8A;
+}
+
+.tab-text {
+  font-size: 20rpx;
+  color: #999;
+  line-height: 1;
+  margin-top: 6rpx;
+}
+
+.tab-item.active .tab-text {
+  color: #FF6B8A;
+  font-weight: 600;
+}
+
+.tab-indicator {
+  position: absolute;
+  top: 4rpx;
+  width: 32rpx;
+  height: 4rpx;
+  background: linear-gradient(90deg, #FF6B8A, #FF8FA3);
+  border-radius: 2rpx;
+}

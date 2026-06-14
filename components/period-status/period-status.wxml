@@ -1,0 +1,27 @@
+<view class="status-card {{isInPeriod ? 'in-period' : ''}}">
+  <!-- 左侧：环形进度 -->
+  <view class="ring-wrapper">
+    <view class="ring-bg">
+      <view
+        class="ring-progress"
+        style="background: conic-gradient({{phaseColor}} 0deg, {{phaseColor}} {{progressDeg}}deg, transparent {{progressDeg}}deg, transparent 360deg);"
+      ></view>
+      <view class="ring-inner">
+        <view class="ring-day">{{displayDay}}</view>
+        <view class="ring-label">{{isInPeriod ? '天' : '天'}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 右侧：状态信息 -->
+  <view class="info-section">
+    <view class="status-text">{{status.phaseText}}</view>
+    <view class="phase-tag" style="background: {{phaseColor}}20; color: {{phaseColor}};">
+      {{phaseLabel}}
+    </view>
+    <view class="predict-row" wx:if="{{formattedDate}}">
+      <text class="predict-label">下次预测</text>
+      <text class="predict-date">{{formattedDate}}</text>
+    </view>
+  </view>
+</view>

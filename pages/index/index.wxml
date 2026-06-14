@@ -1,0 +1,32 @@
+<view class="page">
+  <!-- 日历组件 -->
+  <view class="section calendar-section">
+    <calendar
+      periods="{{periods}}"
+      settings="{{settings}}"
+      selected-date="{{selectedDate}}"
+      bind:dateSelect="onDateSelect"
+    />
+  </view>
+
+  <!-- 经期状态卡片 -->
+  <view class="section status-section">
+    <period-status status="{{currentStatus}}" />
+  </view>
+
+  <!-- 温馨提示卡片 -->
+  <view class="section tip-section">
+    <tip-card tip="{{currentTip}}" bind:refresh="onTipRefresh" />
+  </view>
+
+  <!-- 浮动操作按钮 -->
+  <view
+    class="fab {{isInPeriod ? 'fab--end' : 'fab--start'}}"
+    bindtap="togglePeriod"
+  >
+    <text class="fab__text">{{isInPeriod ? '结束经期' : '记录经期'}}</text>
+  </view>
+
+  <!-- 底部占位，防止 FAB 遮挡内容 -->
+  <view class="bottom-spacer"></view>
+</view>

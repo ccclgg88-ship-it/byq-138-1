@@ -1,0 +1,70 @@
+<view class="calendar">
+  <!-- 月份导航 -->
+  <view class="calendar-header">
+    <view class="nav-arrow nav-left" bindtap="prevMonth">
+      <view class="arrow-icon left"></view>
+    </view>
+    <view class="header-center">
+      <text class="month-title">{{displayMonth}}</text>
+      <view class="today-btn" wx:if="{{showTodayBtn}}" bindtap="goToday">
+        <text class="today-btn-text">今天</text>
+      </view>
+    </view>
+    <view class="nav-arrow nav-right" bindtap="nextMonth">
+      <view class="arrow-icon right"></view>
+    </view>
+  </view>
+
+  <!-- 星期头 -->
+  <view class="weekday-row">
+    <view class="weekday-cell" wx:for="{{weekDays}}" wx:key="*this">
+      <text class="weekday-text {{index === 0 || index === 6 ? 'weekend' : ''}}">{{item}}</text>
+    </view>
+  </view>
+
+  <!-- 日期网格 -->
+  <view class="date-grid">
+    <view class="date-row" wx:for="{{calendarData}}" wx:for-item="row" wx:for-index="rowIdx" wx:key="rowIdx">
+      <view
+        class="date-cell"
+        wx:for="{{row}}"
+        wx:for-item="cell"
+        wx:for-index="colIdx"
+        wx:key="dateStr"
+        bindtap="onDateTap"
+        data-cell="{{cell}}"
+      >
+        <!-- 背景层：易孕期/卵泡期淡紫色 -->
+        <view class="cell-bg {{cell.phase === 'ovulation' || cell.phase === 'follicular' ? 'bg-fertile' : ''}}"></view>
+
+        <!-- 主圆形：经期标记 -->
+        <view class="cell-circle {{cell.phase === 'menstrual' && cell.isRecorded ? 'circle-menstrual' : ''}} {{cell.phase === 'predicted_menstrual' ? 'circle-predicted' : ''}} {{cell.isToday ? 'circle-today' : ''}} {{selectedDate === cell.dateStr ? 'circle-selected' : ''}}">
+          <text class="day-text {{!cell.isCurrentMonth ? 'text-muted' : ''}} {{cell.phase === 'menstrual' && cell.isRecorded ? 'text-white' : ''}} {{cell.phase === 'predicted_menstrual' && cell.isCurrentMonth ? 'text-pink' : ''}} {{cell.isToday && cell.phase !== 'menstrual' ? 'text-today' : ''}}">{{cell.day}}</text>
+        </view>
+
+        <!-- 排卵日小圆点 -->
+        <view class="ovulation-dot" wx:if="{{cell.phase === 'ovulation' && cell.isCurrentMonth}}"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部图例 -->
+  <view class="legend-row">
+    <view class="legend-item">
+      <view class="legend-dot dot-menstrual"></view>
+      <text class="legend-text">经期</text>
+    </view>
+    <view class="legend-item">
+      <view class="legend-dot dot-predicted"></view>
+      <text class="legend-text">预测经期</text>
+    </view>
+    <view class="legend-item">
+      <view class="legend-dot dot-ovulation"></view>
+      <text class="legend-text">排卵日</text>
+    </view>
+    <view class="legend-item">
+      <view class="legend-dot dot-fertile"></view>
+      <text class="legend-text">易孕期</text>
+    </view>
+  </view>
+</view>

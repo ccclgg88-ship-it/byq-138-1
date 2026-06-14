@@ -1,0 +1,270 @@
+.calendar {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 24rpx 16rpx 20rpx;
+  box-shadow: 0 4rpx 24rpx rgba(255, 107, 138, 0.08);
+}
+
+/* ===== 月份导航 ===== */
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8rpx 8rpx 24rpx;
+}
+
+.nav-arrow {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.nav-arrow:active {
+  background: rgba(255, 107, 138, 0.08);
+}
+
+.arrow-icon {
+  width: 18rpx;
+  height: 18rpx;
+  border-top: 4rpx solid #FF6B8A;
+  border-right: 4rpx solid #FF6B8A;
+  border-radius: 2rpx;
+}
+
+.arrow-icon.left {
+  transform: rotate(-135deg);
+  margin-left: 6rpx;
+}
+
+.arrow-icon.right {
+  transform: rotate(45deg);
+  margin-right: 6rpx;
+}
+
+.header-center {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.month-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #2D2D3A;
+  letter-spacing: 2rpx;
+}
+
+.today-btn {
+  background: linear-gradient(135deg, #FF6B8A, #FF8FA8);
+  border-radius: 24rpx;
+  padding: 6rpx 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(255, 107, 138, 0.3);
+  transition: opacity 0.2s;
+}
+
+.today-btn:active {
+  opacity: 0.8;
+}
+
+.today-btn-text {
+  font-size: 22rpx;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* ===== 星期头 ===== */
+.weekday-row {
+  display: flex;
+  padding: 0 4rpx 12rpx;
+}
+
+.weekday-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48rpx;
+}
+
+.weekday-text {
+  font-size: 24rpx;
+  color: #9B9BAD;
+  font-weight: 500;
+}
+
+.weekday-text.weekend {
+  color: #FF6B8A;
+}
+
+/* ===== 日期网格 ===== */
+.date-grid {
+  padding: 0 4rpx;
+}
+
+.date-row {
+  display: flex;
+  margin-bottom: 4rpx;
+}
+
+.date-cell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 88rpx;
+  position: relative;
+}
+
+/* 背景层 */
+.cell-bg {
+  position: absolute;
+  top: 8rpx;
+  left: 4rpx;
+  right: 4rpx;
+  bottom: 8rpx;
+  border-radius: 12rpx;
+  transition: background 0.2s;
+}
+
+.cell-bg.bg-fertile {
+  background: #F3EDFF;
+}
+
+/* ===== 日期圆形标记 ===== */
+.cell-circle {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+  transition: all 0.2s ease;
+}
+
+/* 已记录经期：实心粉色 */
+.cell-circle.circle-menstrual {
+  background: linear-gradient(135deg, #FF6B8A, #FF8FA8);
+  box-shadow: 0 2rpx 12rpx rgba(255, 107, 138, 0.35);
+}
+
+/* 预测经期：虚线边框 */
+.cell-circle.circle-predicted {
+  border: 3rpx dashed #FF6B8A;
+  background: rgba(255, 107, 138, 0.04);
+}
+
+/* 今天：加粗边框 */
+.cell-circle.circle-today {
+  border: 3rpx solid #FF6B8A;
+}
+
+/* 选中日期：外圈高亮 */
+.cell-circle.circle-selected {
+  box-shadow: 0 0 0 4rpx rgba(255, 107, 138, 0.25);
+}
+
+/* 已记录经期 + 选中 */
+.cell-circle.circle-menstrual.circle-selected {
+  box-shadow: 0 0 0 4rpx rgba(255, 107, 138, 0.25), 0 2rpx 12rpx rgba(255, 107, 138, 0.35);
+}
+
+/* 预测经期 + 今天 */
+.cell-circle.circle-predicted.circle-today {
+  border: 3rpx dashed #FF6B8A;
+}
+
+/* ===== 日期文字 ===== */
+.day-text {
+  font-size: 28rpx;
+  color: #2D2D3A;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.day-text.text-muted {
+  color: #D0D0DA;
+}
+
+.day-text.text-white {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.day-text.text-pink {
+  color: #FF6B8A;
+  font-weight: 500;
+}
+
+.day-text.text-today {
+  color: #FF6B8A;
+  font-weight: 700;
+}
+
+/* ===== 排卵日小圆点 ===== */
+.ovulation-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: #9B6BFF;
+  position: absolute;
+  bottom: 6rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  box-shadow: 0 1rpx 4rpx rgba(155, 107, 255, 0.4);
+}
+
+/* ===== 底部图例 ===== */
+.legend-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32rpx;
+  padding: 20rpx 0 8rpx;
+  border-top: 1rpx solid #F5F5FA;
+  margin-top: 12rpx;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.legend-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+}
+
+.dot-menstrual {
+  background: linear-gradient(135deg, #FF6B8A, #FF8FA8);
+}
+
+.dot-predicted {
+  border: 2rpx dashed #FF6B8A;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+.dot-ovulation {
+  background: #9B6BFF;
+}
+
+.dot-fertile {
+  background: #F3EDFF;
+  border: 1rpx solid #E0D4F7;
+  box-sizing: border-box;
+}
+
+.legend-text {
+  font-size: 20rpx;
+  color: #9B9BAD;
+}
