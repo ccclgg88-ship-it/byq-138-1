@@ -3,7 +3,9 @@
     "pages/index/index",
     "pages/statistics/statistics",
     "pages/mine/mine",
-    "pages/record/record"
+    "pages/record/record",
+    "pages/health/health",
+    "pages/article/article"
   ],
   "window": {
     "navigationBarBackgroundColor": "#FF6B8A",

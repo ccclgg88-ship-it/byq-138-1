@@ -144,6 +144,26 @@
   font-weight: 500;
 }
 
+.cell__label-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.cell__icon {
+  font-size: 36rpx;
+}
+
+.cell__tag-pink {
+  font-size: 22rpx;
+  color: #FF6B8A;
+  background: linear-gradient(135deg, #FFE4EA, #F8ECFF);
+  padding: 6rpx 18rpx;
+  border-radius: 16rpx;
+  margin-right: 8rpx;
+  font-weight: 500;
+}
+
 /* ========== 危险操作 ========== */
 .cell--danger:active {
   background: #FFF0F0;

@@ -49,3 +49,60 @@
 .bottom-spacer {
   height: 200rpx;
 }
+
+/* 健康知识入口 */
+.health-entry-card {
+  background: linear-gradient(135deg, #FFE4EA 0%, #F8ECFF 100%);
+  border-radius: 24rpx;
+  padding: 28rpx 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4rpx 20rpx rgba(255, 107, 138, 0.12);
+  transition: all 0.2s;
+}
+
+.health-entry-card:active {
+  transform: scale(0.98);
+}
+
+.health-entry-left {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.health-entry-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.health-entry-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.health-entry-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.health-entry-sub {
+  font-size: 24rpx;
+  color: #888;
+}
+
+.health-entry-arrow {
+  font-size: 48rpx;
+  color: #FF6B8A;
+  font-weight: 300;
+}

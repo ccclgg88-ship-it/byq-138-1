@@ -1,0 +1,246 @@
+<view class="health-page">
+
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        placeholder="搜索健康知识，如痛经、饮食..."
+        placeholder-class="search-placeholder"
+        value="{{keyword}}"
+        bindinput="onSearchInput"
+        focus="{{showSearch}}"
+      />
+      <view class="search-clear" wx:if="{{keyword}}" bindtap="onToggleSearch">✕</view>
+    </view>
+    <text class="search-btn" wx:if="{{!showSearch}}" bindtap="onToggleSearch">搜索</text>
+    <text class="search-btn" wx:else bindtap="onToggleSearch">取消</text>
+  </view>
+
+  <!-- 搜索结果 -->
+  <view class="search-results" wx:if="{{showSearch}}">
+    <view class="empty-state" wx:if="{{keyword && !searchResults.length}}">
+      <text class="empty-icon">📭</text>
+      <text class="empty-text">未找到相关文章，试试其他关键词</text>
+    </view>
+    <view class="article-list" wx:else>
+      <view
+        class="article-item"
+        wx:for="{{searchResults}}"
+        wx:key="id"
+        bindtap="onArticleTap"
+        data-id="{{item.id}}"
+      >
+        <view class="article-main">
+          <view class="article-title">{{item.title}}</view>
+          <view class="article-summary">{{item.summary}}</view>
+          <view class="article-meta">
+            <text class="article-time">⏱ {{item.readTime}}分钟阅读</text>
+            <text class="article-favorite" wx:if="{{favoriteIds.indexOf(item.id) >= 0}}">⭐ 已收藏</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 主内容区 -->
+  <block wx:if="{{!showSearch}}">
+
+    <!-- Tab 栏 -->
+    <view class="tab-bar">
+      <view class="tab-item {{activeTab === 'recommend' ? 'active' : ''}}" data-tab="recommend" bindtap="onTabChange">
+        <text>推荐</text>
+      </view>
+      <view class="tab-item {{activeTab === 'category' ? 'active' : ''}}" data-tab="category" bindtap="onTabChange">
+        <text>分类</text>
+      </view>
+      <view class="tab-item {{activeTab === 'favorite' ? 'active' : ''}}" data-tab="favorite" bindtap="onTabChange">
+        <text>收藏</text>
+      </view>
+      <view class="tab-item {{activeTab === 'history' ? 'active' : ''}}" data-tab="history" bindtap="onTabChange">
+        <text>历史</text>
+      </view>
+    </view>
+
+    <!-- 推荐 Tab -->
+    <view class="tab-content" wx:if="{{activeTab === 'recommend'}}">
+
+      <!-- 个性化推荐 -->
+      <view class="section">
+        <view class="section-header">
+          <view class="section-title">🎯 {{phaseText}}专属推荐</view>
+          <view class="section-sub">根据当前周期阶段精选</view>
+        </view>
+        <view class="phase-card">
+          <view
+            class="phase-item"
+            wx:for="{{phaseArticles}}"
+            wx:key="id"
+            bindtap="onArticleTap"
+            data-id="{{item.id}}"
+          >
+            <view class="phase-item-title">{{item.title}}</view>
+            <view class="phase-item-meta">
+              <text class="phase-item-tag">{{item.tags[0]}}</text>
+              <text class="phase-item-time">{{item.readTime}}分钟</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 每日精选 -->
+      <view class="section">
+        <view class="section-header">
+          <view class="section-title">✨ 今日精选</view>
+          <view class="section-sub">每天为你挑选3篇好文</view>
+        </view>
+        <view class="daily-list">
+          <view
+            class="daily-card"
+            wx:for="{{dailyArticles}}"
+            wx:key="id"
+            bindtap="onArticleTap"
+            data-id="{{item.id}}"
+          >
+            <view class="daily-rank">0{{index + 1}}</view>
+            <view class="daily-content">
+              <view class="daily-title">{{item.title}}</view>
+              <view class="daily-summary">{{item.summary}}</view>
+              <view class="daily-meta">
+                <text class="daily-cat">{{item.readTime}}分钟阅读</text>
+                <text class="daily-fav" wx:if="{{favoriteIds.indexOf(item.id) >= 0}}">⭐</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 快捷分类 -->
+      <view class="section">
+        <view class="section-header">
+          <view class="section-title">📚 分类浏览</view>
+          <view class="section-sub">按主题查找更多内容</view>
+        </view>
+        <view class="quick-cats">
+          <view
+            class="quick-cat-item"
+            wx:for="{{categories}}"
+            wx:key="id"
+            bindtap="onCategoryClick"
+            data-id="{{item.id}}"
+          >
+            <view class="quick-cat-icon">{{item.icon}}</view>
+            <view class="quick-cat-name">{{item.name}}</view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+
+    <!-- 分类 Tab -->
+    <view class="tab-content" wx:if="{{activeTab === 'category'}}">
+      <view class="category-tabs">
+        <view
+          class="cat-tab-item {{activeCategoryId === item.id ? 'active' : ''}}"
+          wx:for="{{categories}}"
+          wx:key="id"
+          bindtap="onCategoryClick"
+          data-id="{{item.id}}"
+        >
+          <text class="cat-tab-icon">{{item.icon}}</text>
+          <text class="cat-tab-name">{{item.name}}</text>
+        </view>
+      </view>
+
+      <view class="empty-state" wx:if="{{!activeCategoryId}}">
+        <text class="empty-icon">👆</text>
+        <text class="empty-text">请选择上方分类</text>
+      </view>
+
+      <view class="article-list" wx:else>
+        <view
+          class="article-item"
+          wx:for="{{categoryArticles}}"
+          wx:key="id"
+          bindtap="onArticleTap"
+          data-id="{{item.id}}"
+        >
+          <view class="article-main">
+            <view class="article-title">{{item.title}}</view>
+            <view class="article-summary">{{item.summary}}</view>
+            <view class="article-tags">
+              <text class="tag tag-pink" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+            </view>
+            <view class="article-meta">
+              <text class="article-time">⏱ {{item.readTime}}分钟阅读</text>
+              <text class="article-favorite" wx:if="{{favoriteIds.indexOf(item.id) >= 0}}">⭐ 已收藏</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 收藏 Tab -->
+    <view class="tab-content" wx:if="{{activeTab === 'favorite'}}">
+      <view class="empty-state" wx:if="{{!favoriteList.length}}">
+        <text class="empty-icon">💝</text>
+        <text class="empty-text">还没有收藏任何文章\n看到喜欢的文章点击收藏吧</text>
+      </view>
+      <view class="article-list" wx:else>
+        <view
+          class="article-item"
+          wx:for="{{favoriteList}}"
+          wx:key="id"
+          bindtap="onArticleTap"
+          data-id="{{item.id}}"
+        >
+          <view class="article-main">
+            <view class="article-title">{{item.title}}</view>
+            <view class="article-summary">{{item.summary}}</view>
+            <view class="article-tags">
+              <text class="tag tag-pink" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+            </view>
+            <view class="article-meta">
+              <text class="article-time">⏱ {{item.readTime}}分钟阅读</text>
+              <text class="article-favorite">⭐ 已收藏</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 历史 Tab -->
+    <view class="tab-content" wx:if="{{activeTab === 'history'}}">
+      <view class="history-header" wx:if="{{historyList.length}}">
+        <text class="history-count">共 {{historyList.length}} 篇</text>
+        <text class="history-clear" bindtap="onClearHistory">清空</text>
+      </view>
+      <view class="empty-state" wx:if="{{!historyList.length}}">
+        <text class="empty-icon">📖</text>
+        <text class="empty-text">还没有阅读记录\n去看看有什么好文吧</text>
+      </view>
+      <view class="article-list" wx:else>
+        <view
+          class="article-item"
+          wx:for="{{historyList}}"
+          wx:key="id"
+          bindtap="onArticleTap"
+          data-id="{{item.id}}"
+        >
+          <view class="article-main">
+            <view class="article-title">{{item.title}}</view>
+            <view class="article-summary">{{item.summary}}</view>
+            <view class="article-meta">
+              <text class="article-time">⏱ {{item.readTime}}分钟阅读</text>
+              <text class="article-favorite" wx:if="{{favoriteIds.indexOf(item.id) >= 0}}">⭐ 已收藏</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </block>
+
+  <view class="bottom-spacer"></view>
+</view>

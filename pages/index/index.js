@@ -10,7 +10,8 @@ Page({
     selectedDate: '',
     currentTip: { id: 0, text: '', icon: '💡' },
     isInPeriod: false,
-    currentPeriodId: null
+    currentPeriodId: null,
+    phaseText: '今日推荐'
   },
 
   _unsubPeriods: null,
@@ -42,6 +43,14 @@ Page({
     var phase = currentStatus.currentPhase || 'general'
     var currentTip = tips.getDailyTip(phase)
 
+    var phaseTextMap = {
+      menstrual: '经期推荐',
+      follicular: '卵泡期推荐',
+      ovulation: '排卵期推荐',
+      luteal: '黄体期推荐'
+    }
+    var phaseText = phaseTextMap[currentStatus.currentPhase] || '今日推荐'
+
     this.setData({
       periods: periods,
       settings: settings,
@@ -49,7 +58,8 @@ Page({
       currentStatus: currentStatus,
       isInPeriod: !!currentPeriodId,
       selectedDate: period.today(),
-      currentTip: currentTip
+      currentTip: currentTip,
+      phaseText: phaseText
     })
   },
 
@@ -115,5 +125,12 @@ Page({
     }
 
     this._refreshData()
+  },
+
+  /** 跳转到健康知识中心 */
+  onGoHealth: function () {
+    wx.navigateTo({
+      url: '/pages/health/health'
+    })
   }
 })

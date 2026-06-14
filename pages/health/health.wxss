@@ -1,0 +1,434 @@
+.health-page {
+  min-height: 100vh;
+  background: #FFF5F7;
+  padding-bottom: 40rpx;
+}
+
+.bottom-spacer {
+  height: calc(40rpx + env(safe-area-inset-bottom));
+}
+
+/* 搜索栏 */
+.search-bar {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 24rpx;
+  background: #FFF;
+  gap: 16rpx;
+}
+
+.search-input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #F5F5F7;
+  border-radius: 36rpx;
+  padding: 12rpx 24rpx;
+  gap: 12rpx;
+}
+
+.search-icon {
+  font-size: 28rpx;
+  opacity: 0.6;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.search-placeholder {
+  color: #999;
+  font-size: 26rpx;
+}
+
+.search-clear {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  background: #CCC;
+  color: #FFF;
+  font-size: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-btn {
+  color: #FF6B8A;
+  font-size: 28rpx;
+  font-weight: 500;
+  padding: 0 8rpx;
+}
+
+/* 搜索结果 */
+.search-results {
+  padding: 24rpx;
+}
+
+/* Tab 栏 */
+.tab-bar {
+  display: flex;
+  background: #FFF;
+  padding: 0 12rpx;
+  border-bottom: 1rpx solid #F0F0F0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.tab-item.active {
+  color: #FF6B8A;
+  font-weight: 600;
+}
+
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48rpx;
+  height: 6rpx;
+  border-radius: 3rpx;
+  background: linear-gradient(135deg, #FF6B8A, #FF8FA3);
+}
+
+/* 内容区 */
+.tab-content {
+  padding: 24rpx 0;
+}
+
+.section {
+  margin-bottom: 32rpx;
+}
+
+.section-header {
+  padding: 0 24rpx 20rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.section-sub {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+/* 阶段推荐卡片 */
+.phase-card {
+  margin: 0 24rpx;
+  background: #FFF;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 24rpx rgba(255, 107, 138, 0.1);
+  overflow: hidden;
+}
+
+.phase-item {
+  padding: 28rpx 24rpx;
+  border-bottom: 1rpx solid #F5F5F7;
+  transition: all 0.2s;
+}
+
+.phase-item:last-child {
+  border-bottom: none;
+}
+
+.phase-item:active {
+  background: #FFF5F7;
+}
+
+.phase-item-title {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 12rpx;
+}
+
+.phase-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.phase-item-tag {
+  font-size: 22rpx;
+  background: #FFE4EA;
+  color: #FF6B8A;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.phase-item-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+/* 每日精选 */
+.daily-list {
+  padding: 0 24rpx;
+}
+
+.daily-card {
+  display: flex;
+  gap: 20rpx;
+  background: #FFF;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 4rpx 20rpx rgba(255, 107, 138, 0.08);
+  transition: all 0.2s;
+}
+
+.daily-card:active {
+  transform: scale(0.98);
+}
+
+.daily-rank {
+  flex-shrink: 0;
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 16rpx;
+  background: linear-gradient(135deg, #FF6B8A, #FF8FA3);
+  color: #FFF;
+  font-size: 26rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.daily-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.daily-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.5;
+  margin-bottom: 8rpx;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.daily-summary {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 12rpx;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.daily-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.daily-cat {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.daily-fav {
+  font-size: 22rpx;
+}
+
+/* 快捷分类 */
+.quick-cats {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 24rpx;
+  gap: 20rpx;
+}
+
+.quick-cat-item {
+  width: calc((100% - 40rpx) / 3);
+  box-sizing: border-box;
+  background: #FFF;
+  border-radius: 20rpx;
+  padding: 28rpx 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+  box-shadow: 0 4rpx 20rpx rgba(255, 107, 138, 0.08);
+  transition: all 0.2s;
+}
+
+.quick-cat-item:active {
+  transform: scale(0.96);
+}
+
+.quick-cat-icon {
+  font-size: 48rpx;
+}
+
+.quick-cat-name {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+/* 分类 Tab */
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20rpx 24rpx;
+  gap: 16rpx;
+  background: #FFF;
+  margin-bottom: 24rpx;
+}
+
+.cat-tab-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 16rpx 24rpx;
+  background: #F5F5F7;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.cat-tab-item.active {
+  background: linear-gradient(135deg, #FF6B8A, #FF8FA3);
+  color: #FFF;
+  box-shadow: 0 4rpx 16rpx rgba(255, 107, 138, 0.3);
+}
+
+.cat-tab-icon {
+  font-size: 28rpx;
+}
+
+/* 文章列表通用 */
+.article-list {
+  padding: 0 24rpx;
+}
+
+.article-item {
+  background: #FFF;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(255, 107, 138, 0.08);
+  transition: all 0.2s;
+}
+
+.article-item:active {
+  transform: scale(0.98);
+}
+
+.article-main {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.article-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-summary {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8rpx;
+}
+
+.article-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.article-favorite {
+  font-size: 22rpx;
+  color: #FFB800;
+}
+
+/* 历史头部 */
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24rpx 20rpx;
+}
+
+.history-count {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.history-clear {
+  font-size: 24rpx;
+  color: #FF6B8A;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 40rpx;
+  color: #999;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 24rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 1.6;
+  white-space: pre-line;
+}

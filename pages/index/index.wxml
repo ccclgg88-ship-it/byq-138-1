@@ -19,6 +19,20 @@
     <tip-card tip="{{currentTip}}" bind:refresh="onTipRefresh" />
   </view>
 
+  <!-- 健康知识中心入口 -->
+  <view class="section health-entry-section" bindtap="onGoHealth">
+    <view class="health-entry-card">
+      <view class="health-entry-left">
+        <view class="health-entry-icon">📚</view>
+        <view class="health-entry-content">
+          <view class="health-entry-title">健康知识中心</view>
+          <view class="health-entry-sub">{{phaseText}} · 24篇精选好文</view>
+        </view>
+      </view>
+      <view class="health-entry-arrow">›</view>
+    </view>
+  </view>
+
   <!-- 浮动操作按钮 -->
   <view
     class="fab {{isInPeriod ? 'fab--end' : 'fab--start'}}"

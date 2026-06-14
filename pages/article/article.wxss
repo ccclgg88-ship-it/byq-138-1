@@ -1,0 +1,210 @@
+.article-page {
+  min-height: 100vh;
+  background: #FFF;
+}
+
+.bottom-spacer {
+  height: calc(60rpx + env(safe-area-inset-bottom));
+}
+
+/* 文章头部 */
+.article-header {
+  padding: 36rpx 32rpx 28rpx;
+  background: linear-gradient(180deg, #FFF5F7 0%, #FFFFFF 100%);
+}
+
+.article-cat {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.cat-tag {
+  font-size: 24rpx;
+  background: #FFE4EA;
+  color: #FF6B8A;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  font-weight: 500;
+}
+
+.read-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.article-title-big {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #333;
+  line-height: 1.4;
+  margin-bottom: 20rpx;
+}
+
+.article-summary {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.7;
+  padding: 20rpx 24rpx;
+  background: #FAFAFC;
+  border-radius: 16rpx;
+  border-left: 6rpx solid #FF6B8A;
+  margin-bottom: 20rpx;
+}
+
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.tag {
+  display: inline-block;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+}
+
+.tag-pink {
+  background: #FFE4EA;
+  color: #FF6B8A;
+}
+
+/* 操作栏 */
+.action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx 32rpx;
+  gap: 48rpx;
+  background: #FFF;
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+  padding: 8rpx 24rpx;
+  transition: all 0.2s;
+  background: transparent;
+  border: none;
+  line-height: normal;
+}
+
+.action-item::after {
+  border: none;
+}
+
+.share-btn {
+  background: transparent !important;
+  margin: 0;
+  padding: 8rpx 24rpx !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24rpx !important;
+  color: #666 !important;
+}
+
+.share-btn::after {
+  border: none;
+}
+
+.action-icon {
+  font-size: 44rpx;
+}
+
+.action-text {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.action-item.active .action-text {
+  color: #FFB800;
+}
+
+/* 分割线 */
+.divider-line {
+  height: 16rpx;
+  background: #F5F5F7;
+  margin: 0 24rpx;
+}
+
+/* 文章正文 */
+.article-body {
+  padding: 32rpx;
+}
+
+.paragraph {
+  margin-bottom: 28rpx;
+}
+
+.paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.para-text {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.9;
+  text-align: justify;
+}
+
+/* 相关推荐 */
+.related-section {
+  padding: 32rpx;
+}
+
+.related-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.related-list {
+  background: #FAFAFC;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+
+.related-item {
+  padding: 24rpx;
+  border-bottom: 1rpx solid #F0F0F0;
+  transition: all 0.2s;
+}
+
+.related-item:last-child {
+  border-bottom: none;
+}
+
+.related-item:active {
+  background: #FFF5F7;
+}
+
+.related-item-title {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 12rpx;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.related-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.related-item-time,
+.related-item-cat {
+  font-size: 22rpx;
+  color: #999;
+}

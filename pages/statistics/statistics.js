@@ -1,6 +1,14 @@
 var store = require('../../utils/store.js')
 var analysis = require('../../utils/analysis.js')
 var period = require('../../utils/period.js')
+var articlesData = require('../../data/articles.js')
+
+var PHASE_ARTICLE_KEYWORDS = {
+  menstrual: ['经期', '痛经', '月经量', '经期不规律'],
+  follicular: ['卵泡期', '运动', '补铁', '饮食'],
+  ovulation: ['排卵期', '排卵', '基础体温', '受孕'],
+  luteal: ['黄体期', 'PMS', '情绪', '经前', '睡眠']
+}
 
 Page({
   data: {
@@ -12,7 +20,9 @@ Page({
     anomalies: [],
     trendData: [],
     trendMaxHeight: 200,
-    avgLineBottom: 0
+    avgLineBottom: 0,
+    phaseArticles: [],
+    phaseRecommendTitle: ''
   },
 
   _unsubPeriods: null,
@@ -54,6 +64,11 @@ Page({
       }
     }
 
+    // 根据当前阶段推荐文章
+    var currentStatus = period.getCurrentStatus(periods, settings)
+    var currentPhase = currentStatus.currentPhase || 'follicular'
+    var phaseInfo = this._getPhaseRecommendations(currentPhase)
+
     this.setData({
       hasData: true,
       cycleAnalysis: report.cycleAnalysis,
@@ -63,8 +78,45 @@ Page({
       anomalies: anomalies,
       trendData: trendBars,
       trendMaxHeight: maxHeight,
-      avgLineBottom: avgLineBottom
+      avgLineBottom: avgLineBottom,
+      phaseArticles: phaseInfo.articles,
+      phaseRecommendTitle: phaseInfo.title
     })
+  },
+
+  _getPhaseRecommendations: function (phase) {
+    var keywords = PHASE_ARTICLE_KEYWORDS[phase] || []
+    var titleMap = {
+      menstrual: '经期相关知识',
+      follicular: '卵泡期调养指南',
+      ovulation: '排卵期必备知识',
+      luteal: '黄体期舒缓建议'
+    }
+    var title = titleMap[phase] || '健康知识推荐'
+
+    var found = []
+    for (var i = 0; i < keywords.length; i++) {
+      var matched = articlesData.searchArticles(keywords[i])
+      for (var j = 0; j < matched.length; j++) {
+        if (!found.find(function (a) { return a.id === matched[j].id })) {
+          found.push(matched[j])
+        }
+      }
+    }
+
+    if (found.length < 3) {
+      var daily = articlesData.getDailyArticles()
+      for (var k = 0; k < daily.length; k++) {
+        if (!found.find(function (a) { return a.id === daily[k].id })) {
+          found.push(daily[k])
+        }
+      }
+    }
+
+    return {
+      title: title,
+      articles: found.slice(0, 3)
+    }
   },
 
   _getMaxLength: function (trend) {
@@ -119,5 +171,20 @@ Page({
       this._unsubSettings()
       this._unsubSettings = null
     }
+  },
+
+  /** 跳转到文章详情 */
+  onArticleTap: function (e) {
+    var id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/article/article?id=' + id
+    })
+  },
+
+  /** 跳转到健康知识中心 */
+  onGoHealth: function () {
+    wx.navigateTo({
+      url: '/pages/health/health'
+    })
   }
 })

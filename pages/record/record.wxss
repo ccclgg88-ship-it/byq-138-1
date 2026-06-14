@@ -254,3 +254,88 @@
   line-height: 88rpx;
   font-size: 32rpx; */
 }
+
+/* ===== 症状相关文章卡片 ===== */
+.symptom-articles-card {
+  margin-top: 8rpx;
+  background: linear-gradient(135deg, #FFFBFC 0%, #F8F4FF 100%);
+}
+
+.article-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #FF6B8A;
+  margin-bottom: 20rpx;
+}
+
+.article-card-more {
+  font-size: 24rpx;
+  color: #FF6B8A;
+  font-weight: normal;
+}
+
+.symptom-article-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.symptom-article-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 16rpx;
+  border-radius: 16rpx;
+  transition: all 0.2s;
+  gap: 16rpx;
+}
+
+.symptom-article-item:active {
+  background: rgba(255, 107, 138, 0.06);
+}
+
+.sa-tag {
+  flex-shrink: 0;
+  font-size: 20rpx;
+  padding: 6rpx 14rpx;
+  border-radius: 12rpx;
+  font-weight: 500;
+}
+
+.sa-tag--symptom {
+  background: #FFE4EA;
+  color: #FF6B8A;
+}
+
+.sa-tag--phase {
+  background: #E8DEFF;
+  color: #9B6BFF;
+}
+
+.sa-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sa-title {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 6rpx;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.sa-meta {
+  font-size: 20rpx;
+  color: #999;
+}
+
+.sa-arrow {
+  flex-shrink: 0;
+  font-size: 32rpx;
+  color: #CCC;
+}

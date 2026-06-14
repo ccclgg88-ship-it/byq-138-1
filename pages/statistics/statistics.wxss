@@ -21,6 +21,82 @@
   margin-bottom: 24rpx;
 }
 
+.card__title--pink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #FF6B8A;
+}
+
+.card__link {
+  font-size: 24rpx;
+  font-weight: normal;
+  color: #FF6B8A;
+}
+
+/* 文章链接列表 */
+.article-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.article-link-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 16rpx;
+  border-radius: 16rpx;
+  transition: all 0.2s;
+}
+
+.article-link-item:active {
+  background: #FFF5F7;
+}
+
+.article-link-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.article-link-title {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 8rpx;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-link-meta {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.article-link-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.article-link-tag {
+  font-size: 20rpx;
+  color: #FF6B8A;
+  background: #FFE4EA;
+  padding: 4rpx 12rpx;
+  border-radius: 10rpx;
+}
+
+.article-link-arrow {
+  font-size: 36rpx;
+  color: #CCC;
+  margin-left: 12rpx;
+  flex-shrink: 0;
+}
+
 /* 1. 概览卡片 */
 .overview-card {
   background: linear-gradient(135deg, #FF6B8A 0%, #FF9AB2 100%);

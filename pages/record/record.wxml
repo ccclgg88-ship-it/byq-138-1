@@ -115,6 +115,45 @@
     </view>
   </view>
 
+  <!-- 症状相关健康文章 -->
+  <view class="card symptom-articles-card" wx:if="{{symptomArticles.length || phaseArticles.length}}">
+    <view class="card-title article-card-title">
+      <text>💡 {{recommendTitle}}</text>
+      <text class="article-card-more" bindtap="onGoHealth">更多 ›</text>
+    </view>
+    <view class="symptom-article-list">
+      <view
+        class="symptom-article-item"
+        wx:for="{{symptomArticles}}"
+        wx:key="id"
+        bindtap="onArticleTap"
+        data-id="{{item.id}}"
+      >
+        <view class="sa-tag sa-tag--symptom">{{item.matchSymptom}}</view>
+        <view class="sa-content">
+          <view class="sa-title">{{item.title}}</view>
+          <view class="sa-meta">⏱ {{item.readTime}}分钟阅读</view>
+        </view>
+        <view class="sa-arrow">›</view>
+      </view>
+      <view
+        class="symptom-article-item"
+        wx:for="{{phaseArticles}}"
+        wx:for-item="pItem"
+        wx:key="id"
+        bindtap="onArticleTap"
+        data-id="{{pItem.id}}"
+      >
+        <view class="sa-tag sa-tag--phase">{{pItem.matchPhase}}</view>
+        <view class="sa-content">
+          <view class="sa-title">{{pItem.title}}</view>
+          <view class="sa-meta">⏱ {{pItem.readTime}}分钟阅读</view>
+        </view>
+        <view class="sa-arrow">›</view>
+      </view>
+    </view>
+  </view>
+
   <!-- 保存按钮 -->
   <view class="save-area">
     <button class="btn-primary save-btn" bindtap="onSave">保存记录</button>

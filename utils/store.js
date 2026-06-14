@@ -21,7 +21,9 @@ class Store {
       }),
       periods: storage.load('periods', []),
       dailyRecords: storage.load('dailyRecords', {}),
-      currentPeriodId: storage.load('currentPeriodId', null)
+      currentPeriodId: storage.load('currentPeriodId', null),
+      favoriteArticles: storage.load('favoriteArticles', []),
+      readingHistory: storage.load('readingHistory', [])
     }
   }
 
@@ -101,6 +103,43 @@ class Store {
         try { cb(key, value) } catch (e) { console.error('[Store] notify error:', e) }
       })
     }
+  }
+
+  /** 收藏文章 */
+  toggleFavorite(articleId) {
+    const favorites = this._state.favoriteArticles.slice()
+    const index = favorites.indexOf(articleId)
+    if (index >= 0) {
+      favorites.splice(index, 1)
+    } else {
+      favorites.unshift(articleId)
+    }
+    this.set('favoriteArticles', favorites)
+    return index < 0
+  }
+
+  /** 检查是否已收藏 */
+  isFavorite(articleId) {
+    return this._state.favoriteArticles.indexOf(articleId) >= 0
+  }
+
+  /** 添加阅读历史 */
+  addReadingHistory(articleId) {
+    const history = this._state.readingHistory.slice()
+    const index = history.indexOf(articleId)
+    if (index >= 0) {
+      history.splice(index, 1)
+    }
+    history.unshift(articleId)
+    if (history.length > 50) {
+      history.length = 50
+    }
+    this.set('readingHistory', history)
+  }
+
+  /** 清空阅读历史 */
+  clearReadingHistory() {
+    this.set('readingHistory', [])
   }
 
   /** 重置所有数据 */

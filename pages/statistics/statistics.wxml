@@ -86,7 +86,33 @@
       </view>
     </view>
 
-    <!-- 5. 数据洞察 -->
+    <!-- 5. 周期相关文章推荐 -->
+    <view class="card" wx:if="{{phaseArticles.length}}">
+      <view class="card__title card__title--pink">
+        <text>📚 {{phaseRecommendTitle}}</text>
+        <text class="card__link" bindtap="onGoHealth">查看更多 ›</text>
+      </view>
+      <view class="article-link-list">
+        <view
+          class="article-link-item"
+          wx:for="{{phaseArticles}}"
+          wx:key="id"
+          bindtap="onArticleTap"
+          data-id="{{item.id}}"
+        >
+          <view class="article-link-main">
+            <view class="article-link-title">{{item.title}}</view>
+            <view class="article-link-meta">
+              <text class="article-link-time">⏱ {{item.readTime}}分钟</text>
+              <text class="article-link-tag">{{item.tags[0]}}</text>
+            </view>
+          </view>
+          <view class="article-link-arrow">›</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 6. 数据洞察 -->
     <view class="card" wx:if="{{insights.length || anomalies.length}}">
       <view class="card__title">数据洞察</view>
       <view class="insight-item" wx:for="{{insights}}" wx:key="*this">

@@ -1,6 +1,7 @@
 var store = require('../../utils/store.js')
 var period = require('../../utils/period.js')
 var util = require('../../utils/util.js')
+var articlesData = require('../../data/articles.js')
 
 var WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
 
@@ -33,6 +34,25 @@ var PHASE_LABELS = {
   unknown: ''
 }
 
+var SYMPTOM_KEYWORDS = {
+  cramps: { label: '痛经', keywords: ['痛经', '缓解', '经期'] },
+  headache: { label: '头痛', keywords: ['头痛', '经期', 'PMS'] },
+  backache: { label: '腰酸', keywords: ['腰酸', '瑜伽', '经期'] },
+  breast_tenderness: { label: '乳房胀痛', keywords: ['乳房', 'PMS', '经前'] },
+  fatigue: { label: '疲劳', keywords: ['疲劳', '补铁', '饮食'] },
+  insomnia: { label: '失眠', keywords: ['失眠', '睡眠', 'PMS'] },
+  diarrhea: { label: '腹泻', keywords: ['经期', '饮食', '健康知识'] },
+  appetite_change: { label: '食欲变化', keywords: ['PMS', '饮食', '情绪'] }
+}
+
+var PHASE_KEYWORDS = {
+  menstrual: { label: '经期', keywords: ['经期', '痛经', '月经量'] },
+  predicted_menstrual: { label: '经期', keywords: ['经期', '痛经'] },
+  follicular: { label: '卵泡期', keywords: ['卵泡期', '运动', '补铁'] },
+  ovulation: { label: '排卵期', keywords: ['排卵期', '排卵', '基础体温'] },
+  luteal: { label: '黄体期', keywords: ['黄体期', 'PMS', '情绪'] }
+}
+
 Page({
   data: {
     dateStr: '',
@@ -52,7 +72,13 @@ Page({
     notes: '',
     // 选项列表
     symptomList: SYMPTOM_LIST,
-    moodList: MOOD_LIST
+    moodList: MOOD_LIST,
+    // 推荐文章
+    symptomArticles: [],
+    phaseArticles: [],
+    recommendTitle: '健康知识推荐',
+    // 当前阶段（用于推荐文章）
+    currentPhase: 'unknown'
   },
 
   onLoad: function (options) {
@@ -97,8 +123,10 @@ Page({
       isInPeriod: isInPeriod,
       isPredicted: isPredicted,
       periodDayNum: periodDayNum,
-      periodId: info.periodId || null
+      periodId: info.periodId || null,
+      currentPhase: info.phase || 'unknown'
     })
+    this._refreshRecommendations()
   },
 
   /** 加载已有的每日记录 */
@@ -148,6 +176,7 @@ Page({
     }
     this.setData({ symptoms: symptoms })
     this._updateSymptomList()
+    this._refreshRecommendations()
   },
 
   /** 选择心情 */
@@ -241,5 +270,89 @@ Page({
     setTimeout(function () {
       wx.navigateBack()
     }, 1200)
+  },
+
+  /** 刷新推荐文章 */
+  _refreshRecommendations: function () {
+    var self = this
+    var symptoms = this.data.symptoms || []
+    var phase = this.data.currentPhase
+    var phaseLabel = (PHASE_LABELS[phase] || '')
+
+    var symptomArticles = []
+    var usedIds = {}
+
+    // 根据症状找文章
+    for (var i = 0; i < symptoms.length; i++) {
+      var sk = symptoms[i]
+      var config = SYMPTOM_KEYWORDS[sk]
+      if (!config) continue
+      for (var j = 0; j < config.keywords.length; j++) {
+        var matched = articlesData.searchArticles(config.keywords[j])
+        for (var k = 0; k < matched.length; k++) {
+          var art = matched[k]
+          if (!usedIds[art.id]) {
+            usedIds[art.id] = true
+            var copy = Object.assign({}, art)
+            copy.matchSymptom = config.label
+            symptomArticles.push(copy)
+          }
+          if (symptomArticles.length >= 3) break
+        }
+        if (symptomArticles.length >= 3) break
+      }
+      if (symptomArticles.length >= 3) break
+    }
+
+    // 根据阶段找文章
+    var phaseArticles = []
+    var phaseConfig = PHASE_KEYWORDS[phase]
+    if (phaseConfig && symptomArticles.length < 3) {
+      for (var pj = 0; pj < phaseConfig.keywords.length; pj++) {
+        var pm = articlesData.searchArticles(phaseConfig.keywords[pj])
+        for (var pk = 0; pk < pm.length; pk++) {
+          var part = pm[pk]
+          if (!usedIds[part.id]) {
+            usedIds[part.id] = true
+            var pcopy = Object.assign({}, part)
+            pcopy.matchPhase = phaseConfig.label
+            phaseArticles.push(pcopy)
+          }
+          if (phaseArticles.length >= 2) break
+        }
+        if (phaseArticles.length >= 2) break
+      }
+    }
+
+    // 确定标题
+    var title = '健康知识推荐'
+    if (symptomArticles.length > 0 && phaseLabel) {
+      title = '针对症状与' + phaseLabel + '的建议'
+    } else if (symptomArticles.length > 0) {
+      title = '针对症状的建议'
+    } else if (phaseArticles.length > 0 && phaseLabel) {
+      title = phaseLabel + '健康建议'
+    }
+
+    this.setData({
+      symptomArticles: symptomArticles,
+      phaseArticles: phaseArticles,
+      recommendTitle: title
+    })
+  },
+
+  /** 跳转到文章详情 */
+  onArticleTap: function (e) {
+    var id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/article/article?id=' + id
+    })
+  },
+
+  /** 跳转到健康知识中心 */
+  onGoHealth: function () {
+    wx.navigateTo({
+      url: '/pages/health/health'
+    })
   }
 })

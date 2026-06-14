@@ -81,6 +81,13 @@ Page({
     })
   },
 
+  /** 跳转到健康知识中心 */
+  onGoHealth: function () {
+    wx.navigateTo({
+      url: '/pages/health/health'
+    })
+  },
+
   /** 清除所有数据 */
   onClearData: function () {
     util.showConfirm(

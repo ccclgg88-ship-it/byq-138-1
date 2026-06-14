@@ -1,0 +1,62 @@
+<view class="article-page" wx:if="{{article}}">
+
+  <!-- 文章头部 -->
+  <view class="article-header">
+    <view class="article-cat">
+      <text class="cat-tag">{{categoryName}}</text>
+      <text class="read-time">⏱ {{article.readTime}}分钟阅读</text>
+    </view>
+    <view class="article-title-big">{{article.title}}</view>
+    <view class="article-summary">{{article.summary}}</view>
+    <view class="article-tags">
+      <text class="tag tag-pink" wx:for="{{article.tags}}" wx:key="*this">{{item}}</text>
+    </view>
+  </view>
+
+  <!-- 收藏按钮 -->
+  <view class="action-bar">
+    <view class="action-item {{isFavorite ? 'active' : ''}}" bindtap="onToggleFavorite">
+      <text class="action-icon">{{isFavorite ? '⭐' : '☆'}}</text>
+      <text class="action-text">{{isFavorite ? '已收藏' : '收藏'}}</text>
+    </view>
+    <button class="action-item share-btn" open-type="share">
+      <text class="action-icon">📤</text>
+      <text class="action-text">分享</text>
+    </button>
+  </view>
+
+  <view class="divider-line"></view>
+
+  <!-- 文章正文 -->
+  <view class="article-body">
+    <view class="paragraph" wx:for="{{paragraphs}}" wx:key="index">
+      <text class="para-text">{{item}}</text>
+    </view>
+  </view>
+
+  <!-- 分割线 -->
+  <view class="divider-line"></view>
+
+  <!-- 相关推荐 -->
+  <view class="related-section" wx:if="{{relatedArticles.length}}">
+    <view class="related-title">📚 相关推荐</view>
+    <view class="related-list">
+      <view
+        class="related-item"
+        wx:for="{{relatedArticles}}"
+        wx:key="id"
+        bindtap="onRelatedTap"
+        data-id="{{item.id}}"
+      >
+        <view class="related-item-title">{{item.title}}</view>
+        <view class="related-item-meta">
+          <text class="related-item-time">{{item.readTime}}分钟</text>
+          <text class="related-item-cat">{{categoryName}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-spacer"></view>
+
+</view>
